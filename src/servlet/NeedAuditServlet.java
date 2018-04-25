@@ -1,22 +1,20 @@
 package servlet;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import net.sf.json.JSONObject;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.Requirement;
+import bean.PurchasePlan;
 import bean.ResultBean;
 import data.NeedDataHelper;
+import data.PlanDataHelper;
 
 /**
  * @author mingC
@@ -29,17 +27,20 @@ public class NeedAuditServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setHeader("content-type","text/html;charset=UTF-8");
 
-		Type listType = new TypeToken<ArrayList<Requirement>>(){}.getType();
 		Gson gson = new Gson();
-		ArrayList<Requirement> list = gson.fromJson(request.getReader(), listType);
-		System.out.println("需求审核:" + request.getRemoteAddr() + ",参数：" + list);
+		//2018-04-25(改接口)
+		//		Type listType = new TypeToken<ArrayList<Requirement>>(){}.getType();
+		//		ArrayList<Requirement> list = gson.fromJson(request.getReader(), listType);
+		//		System.out.println("需求审核:" + request.getRemoteAddr() + ",参数：" + list);
 
-		boolean res = NeedDataHelper.setNeedAudited(list);
+		PurchasePlan plan = gson.fromJson(request.getReader(), PurchasePlan.class);
+		boolean res = NeedDataHelper.setNeedAudited(plan.getRequirementList());
+		boolean res2 = PlanDataHelper.addPlan(plan.getEateryCode(), plan.getReceiverName(), plan.getReceiveAddress(), plan.getReceiverPhone());
 		ResultBean bean;
-		if (res) {
+		if (res && res2) {
 			bean = new ResultBean(1, "ok");
 		} else {
-			bean = new ResultBean(-1, "audit error");
+			bean = new ResultBean(-1, "审核需求(生成计划)失败！");
 		}
 		response.getWriter().write(JSONObject.fromObject(bean).toString());
 	}

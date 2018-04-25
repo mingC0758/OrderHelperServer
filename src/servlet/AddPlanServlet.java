@@ -16,6 +16,7 @@ import data.PlanDataHelper;
  * @author mingC
  * @date 2018/3/26
  */
+@Deprecated
 public class AddPlanServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 	                      HttpServletResponse response) throws ServletException, IOException {
