@@ -22,33 +22,48 @@ import util.Util;
 public class NeedDataHelper extends BaseDataHelper{
 
 	/**
-	 * 添加需求（未审核）
+	 * 添加需求（未审核）同时合并相同档口的相同产品需求
 	 */
 	public static boolean insertNeed(Requirement requirement) {
-		int count;
 		try {
 		Connection connection = getConnection();
-		PreparedStatement statement = connection.prepareStatement("INSERT INTO need(eateryCode, varietyName, specification, varietyCode, amount, price, state, submit_time, actual_amount, store_name) VALUES (?,?,?,?,?,?,?,?,?,?)");
-		statement.setInt(1, requirement.getEateryCode());
-		statement.setString(2, requirement.getVarietyName());
-		statement.setString(3, requirement.getSpecification());
-		statement.setInt(4, requirement.getVarietyCode());
-		statement.setInt(5, requirement.getAmount());
-		statement.setDouble(6, requirement.getPrice());
-		statement.setString(7, "审核中");
-		statement.setString(8, Util.getDateTimePretty());
-		statement.setInt(9, requirement.getAmount());
-		statement.setString(10, "档口B");
-		count = statement.executeUpdate();
+		//先判断该档口的该产品是否存在，若存在则增加数量即可
+		PreparedStatement statCheck = connection.prepareStatement("SELECT * FROM need WHERE state='审核中' AND  store_name=? AND varietyCode=?");
+		statCheck.setString(1, requirement.getStoreName());
+		statCheck.setInt(2, requirement.getVarietyCode());
+		ResultSet rsCheck = statCheck.executeQuery();
+		if (rsCheck.next()) {
+			System.out.println("需求已经存在：" + requirement.getVarietyName());
+			int amount = rsCheck.getInt("amount");
+			amount += requirement.getAmount();
+			int id = rsCheck.getInt("id");
+			//更新数量
+			PreparedStatement statUpdate = connection.prepareStatement("UPDATE need SET amount=? WHERE id=?");
+			statUpdate.setInt(1, amount);
+			statUpdate.setInt(2, id);
+			statUpdate.executeUpdate();
+		} else {
+			//不存在相同，插入新需求
+			System.out.println("需求不存在，新插入：" + requirement.getVarietyName());
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO need(eateryCode, varietyName, specification, varietyCode, amount, price, state, submit_time, actual_amount, store_name) VALUES (?,?,?,?,?,?,?,?,?,?)");
+			statement.setInt(1, requirement.getEateryCode());
+			statement.setString(2, requirement.getVarietyName());
+			statement.setString(3, requirement.getSpecification());
+			statement.setInt(4, requirement.getVarietyCode());
+			statement.setInt(5, requirement.getAmount());
+			statement.setDouble(6, requirement.getPrice());
+			statement.setString(7, "审核中");
+			statement.setString(8, Util.getDateTimePretty());
+			statement.setInt(9, requirement.getAmount());
+			statement.setString(10, requirement.getStoreName());
+			statement.executeUpdate();
+		}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
-		if (count == 1) {
-			return true;
-		} else {
-			return false;
-		}
+		return true;
 	}
 
 	/**
@@ -143,7 +158,6 @@ public class NeedDataHelper extends BaseDataHelper{
 
 	/**
 	 * 查找特定订单下特定产品的冲销记录列表
-	 * @param orderId
 	 * @param needId
 	 * @return
 	 */

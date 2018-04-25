@@ -184,11 +184,11 @@
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="55" parent="13" name="planId">
+    <column id="55" parent="13" name="plan_id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="56" parent="13" name="needId">
+    <column id="56" parent="13" name="need_id">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>

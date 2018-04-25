@@ -48,7 +48,7 @@ public class PlanDataHelper extends BaseDataHelper{
 
 			ResultSet resultSet1 = connection.createStatement().executeQuery("SELECT id FROM need WHERE state = '已审核' AND eateryCode = " + eateryCode);
 			while (resultSet1.next()) {
-				PreparedStatement statement1 = connection.prepareStatement("INSERT INTO plan_need(planId, needId) VALUES (?,?)");
+				PreparedStatement statement1 = connection.prepareStatement("INSERT INTO plan_need(plan_id, need_id) VALUES (?,?)");
 				statement1.setInt(1, id);
 				statement1.setInt(2, resultSet1.getInt(1));
 				statement1.executeUpdate();
@@ -90,18 +90,11 @@ public class PlanDataHelper extends BaseDataHelper{
 				purchasePlan.setSubmitTime(resultSet.getString("submit_time"));
 				//继续查找需求列表
 				List<Requirement> requirementList = new LinkedList<>();
-				PreparedStatement reqStatement = connection.prepareStatement("SELECT * FROM (plan_need,need) WHERE plan_need.planId = ? AND plan_need.needId = need.id");
+				PreparedStatement reqStatement = connection.prepareStatement("SELECT * FROM (plan_need,need,variety) WHERE plan_need.plan_id = ? AND plan_need.need_id = need.id AND need.varietyCode=variety.id");
 				reqStatement.setInt(1, purchasePlan.getPlanCode());
 				ResultSet reqResultSet = reqStatement.executeQuery();
 				while (reqResultSet.next()) {
-					Requirement requirement = new Requirement();
-					requirement.setAmount(reqResultSet.getInt("amount"));
-					requirement.setEateryCode(reqResultSet.getInt("eateryCode"));
-					requirement.setNeedId(reqResultSet.getInt("id"));
-					requirement.setPrice(reqResultSet.getDouble("price"));
-					requirement.setSpecification(reqResultSet.getString("specification"));
-					requirement.setVarietyCode(reqResultSet.getInt("varietyCode"));
-					requirement.setVarietyName(reqResultSet.getString("varietyName"));
+					Requirement requirement = NeedDataHelper.getRequirement(reqResultSet);
 					requirementList.add(requirement);
 				}
 				purchasePlan.setRequirementList(requirementList);
@@ -114,6 +107,7 @@ public class PlanDataHelper extends BaseDataHelper{
 	}
 
 	/**
+	 * @deprecated 需求的resulset有bug
 	 * 将计划状态设为“通过”，并切割成订单
 	 * @param planCode
 	 * @return
@@ -127,7 +121,7 @@ public class PlanDataHelper extends BaseDataHelper{
 			count = statement.executeUpdate();
 			//切割订单
 			//1.获取计划的所有需求
-			PreparedStatement needStat = connection.prepareStatement("SELECT * FROM (plan_need, need, variety) WHERE plan_need.planId=? AND plan_need.needId=need.id AND variety.id=need.varietyCode");
+			PreparedStatement needStat = connection.prepareStatement("SELECT * FROM (plan_need, need, variety) WHERE plan_need.plan_id=? AND plan_need.need_id=need.id AND variety.id=need.varietyCode");
 			needStat.setInt(1, planCode);
 			ResultSet resultSet = needStat.executeQuery();
 			//2.根据需求品种的供应商分类
@@ -192,7 +186,7 @@ public class PlanDataHelper extends BaseDataHelper{
 				purchasePlan.setSubmitTime(resultSet.getString("submit_time"));
 				//继续查找需求列表
 				List<Requirement> requirementList = new LinkedList<>();
-				PreparedStatement reqStatement = connection.prepareStatement("SELECT * FROM (plan_need,need) WHERE plan_need.planId = ? AND plan_need.needId = need.id");
+				PreparedStatement reqStatement = connection.prepareStatement("SELECT * FROM (plan_need,need) WHERE plan_need.plan_id = ? AND plan_need.need_id = need.id");
 				reqStatement.setInt(1, purchasePlan.getPlanCode());
 				ResultSet reqResultSet = reqStatement.executeQuery();
 				while (reqResultSet.next()) {
