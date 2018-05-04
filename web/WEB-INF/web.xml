@@ -5,10 +5,6 @@
          version="3.1">
 
 	<servlet>
-		<servlet-name>GetProductsServlet</servlet-name>
-		<servlet-class>servlet.GetProductsServlet</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>NeedServlet</servlet-name>
 		<servlet-class>servlet.NeedServlet</servlet-class>
 	</servlet>
@@ -64,11 +60,11 @@
 		<servlet-name>AddOrderSignServlet</servlet-name>
 		<servlet-class>servlet.AddOrderSignServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>WriteOffSignUploadServlet</servlet-name>
+		<servlet-class>servlet.WriteOffSignUploadServlet</servlet-class>
+	</servlet>
 
-	<servlet-mapping>
-		<servlet-name>GetProductsServlet</servlet-name>
-		<url-pattern>/GetProducts</url-pattern>
-	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>NeedServlet</servlet-name>
 		<url-pattern>/Need/add</url-pattern>
@@ -124,5 +120,9 @@
 	<servlet-mapping>
 		<servlet-name>AddOrderSignServlet</servlet-name>
 		<url-pattern>/Order/add/signPic</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>WriteOffSignUploadServlet</servlet-name>
+		<url-pattern>/Need/uploadWriteOffSign</url-pattern>
 	</servlet-mapping>
 </web-app>

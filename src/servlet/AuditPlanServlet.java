@@ -35,6 +35,7 @@ public class AuditPlanServlet extends HttpServlet {
 		Type listType = new TypeToken<ArrayList<Integer>>(){}.getType();
 		Gson gson = new Gson();
 		List<Integer> list = gson.fromJson(request.getReader(), listType);
+		//计划编号
 		for (Integer integer : list) {
 			System.out.println("计划审核：" + integer);
 			PlanDataHelper.setPlanAudited(integer);

@@ -3,7 +3,6 @@ package util;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 /**
@@ -33,12 +32,29 @@ public class Util {
 		return "" + calendar.get(Calendar.DAY_OF_MONTH);
 	}
 
-	public static String getRandomId() {
-		Date date = Calendar.getInstance().getTime();
-		String string = new SimpleDateFormat("yyyyMMddHHmmssSSS").format(date);
-		//Random random = new Random(System.currentTimeMillis());
-		//string += random.nextInt(10000);
-		return string;
+	public static String fileSizeConver(long size) {
+		//如果字节数少于1024，则直接以B为单位
+		if (size < 1024) {
+			return String.valueOf(size) + "B";
+		} else {
+			size = size / 1024;
+		}
+		//如果原字节数除于1024之后，少于1024，则可以直接以KB作为单位
+		if (size < 1024) {
+			return String.valueOf(size) + "KB";
+		} else {
+			size = size / 1024;
+		}
+		if (size < 1024) {
+			//因为如果以MB为单位的话，要保留最后1位小数，
+			//因此，把此数乘以100之后再取余
+			size = size * 100;
+			return String.valueOf((size / 100)) + "." + String.valueOf((size % 100)) + "MB";
+		} else {
+			//否则如果要以GB为单位的，先除于1024再作同样的处理
+			size = size * 100 / 1024;
+			return String.valueOf((size / 100)) + "." + String.valueOf((size % 100)) + "GB";
+		}
 	}
 
 	public static void main(String[] args) {

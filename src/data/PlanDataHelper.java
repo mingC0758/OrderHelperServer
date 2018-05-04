@@ -107,7 +107,6 @@ public class PlanDataHelper extends BaseDataHelper{
 	}
 
 	/**
-	 * @deprecated 需求的resulset有bug
 	 * 将计划状态设为“通过”，并切割成订单
 	 * @param planCode
 	 * @return

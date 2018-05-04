@@ -44,6 +44,17 @@ public class Requirement {
 	//冲销记录
 	List<WriteOff> writeOffs;
 
+	//状态
+	String state;
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
 	public int getNeedId() {
 		return needId;
 	}

@@ -13,7 +13,7 @@ public class PurchaseOrder{
 	//食堂名
 	String eateryName;
 
-	//订单编号
+	//订单编号（用于索引）
 	int orderCode;
 
 	int planCode; //是由哪个计划切割出来的
@@ -43,10 +43,12 @@ public class PurchaseOrder{
 	//备注图片url
 	List<String> notePicUrls;
 
-	@Override
-	public String toString() {
-		return "PurchaseOrder{" + "eateryCode=" + eateryCode + ", eateryName='" + eateryName + '\'' + ", orderCode=" + orderCode + ", planCode=" + planCode + ", status='" + status + '\'' + ", purchaseList=" + purchaseList + ", submitTime='" + submitTime + '\'' + ", submitUser='" + submitUser + '\'' + ", receiverName='" + receiverName + '\'' + ", receiveAddress='" + receiveAddress + '\'' + ", receiverPhone='" + receiverPhone + '\'' + ", signPicUrl='" + signPicUrl + '\'' + ", noteText='" + noteText + '\'' + ", notePicUrls=" + notePicUrls + '}';
-	}
+//	//发货时间
+//	String dispatchTime;
+//
+//	//收货时间
+//	String receiveTime;
+
 
 	public int getEateryCode() {
 		return eateryCode;

@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.ResultBean;
 import data.OrderDataHelper;
+import util.Constant;
 
 /**
  * @author mingC
@@ -27,7 +28,7 @@ import data.OrderDataHelper;
  */
 public class OrderAddNotePicsServlet extends HttpServlet {
 		// 上传文件存储目录
-		private static final String UPLOAD_DIRECTORY = "upload";
+		private static final String UPLOAD_DIRECTORY = Constant.UPLOAD_PATH;
 
 		// 上传配置
 		private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB

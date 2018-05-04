@@ -32,7 +32,7 @@ public class WriteOff {
 
 	@Override
 	public String toString() {
-		return "WriteOff{" + "id=" + id + ", needId=" + needId + ", type='" + type + '\'' + ", amount=" + amount + ", submitUser='" + submitUser + '\'' + ", submitTime='" + submitTime + '\'' + ", reasonText='" + reasonText + '\'' + '}';
+		return "WriteOff{" + "orderCode=" + id + ", needId=" + needId + ", type='" + type + '\'' + ", amount=" + amount + ", submitUser='" + submitUser + '\'' + ", submitTime='" + submitTime + '\'' + ", reasonText='" + reasonText + '\'' + '}';
 	}
 
 	public String getSubmitTime() {

@@ -67,12 +67,35 @@ public class NeedDataHelper extends BaseDataHelper{
 	}
 
 	/**
+	 * 获取食堂所有需求
+	 * @param eateryCode
+	 * @return
+	 */
+	public static List<Requirement> getNeedList(int eateryCode) {
+		List<Requirement> list = new ArrayList<>();
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM need,variety WHERE need.varietyCode=variety.id AND eateryCode = ?");
+			statement.setInt(1, eateryCode);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				Requirement requirement = getRequirement(resultSet);
+				list.add(requirement);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+		return list;
+	}
+
+	/**
 	 * 获取某状态下的需求
 	 * @param eateryCode
 	 * @param state
 	 * @return
 	 */
-	public static List<Requirement> getUnauditedNeed(int eateryCode, String state) {
+	public static List<Requirement> getNeedList(int eateryCode, String state) {
 		List<Requirement> list = new ArrayList<>();
 		Connection connection = getConnection();
 		try {
@@ -105,6 +128,7 @@ public class NeedDataHelper extends BaseDataHelper{
 		requirement.setActualAmount(resultSet.getInt("actual_amount"));
 		requirement.setStoreName(resultSet.getString("store_name"));
 		requirement.setWriteOffs(getWriteOffList(requirement.getNeedId()));
+		requirement.setState(resultSet.getString("state"));
 		return requirement;
 	}
 

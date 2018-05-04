@@ -1,11 +1,13 @@
 package bean;
 
+import java.io.Serializable;
+
 /**
  * 采购列表
  * @author mingC
  * @date 2018/3/20
  */
-public class Purchase{
+public class Purchase implements Serializable {
 	//品种名称
 	String varietyName;
 

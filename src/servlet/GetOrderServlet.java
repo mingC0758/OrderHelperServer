@@ -35,7 +35,6 @@ public class GetOrderServlet extends HttpServlet {
 		if (object == null) {
 			response.sendError(400, "参数错误！");
 		}
-		System.out.println(object.toString());
 		response.getWriter().write(object.toString());
 	}
 

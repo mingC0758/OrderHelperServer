@@ -30,7 +30,6 @@ public class GetUnauditedPlanServlet extends HttpServlet {
 
 		int eateryCode = Integer.parseInt(request.getParameter("eateryCode"));
 		JSONArray object = JSONArray.fromObject(PlanDataHelper.getUnauditedPlanList(eateryCode));
-		System.out.println(object.toString());
 		response.getWriter().write(object.toString());
 	}
 
