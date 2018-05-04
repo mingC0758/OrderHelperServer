@@ -22,6 +22,17 @@ public class WriteOff {
 	//冲销原因
 	String reasonText;
 
+	//签名图
+	String signPic;
+
+	public String getSignPic() {
+		return signPic;
+	}
+
+	public void setSignPic(String signPic) {
+		this.signPic = signPic;
+	}
+
 	public int getNeedId() {
 		return needId;
 	}

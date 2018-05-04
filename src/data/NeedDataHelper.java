@@ -200,6 +200,7 @@ public class NeedDataHelper extends BaseDataHelper{
 				writeOff.setSubmitTime(resultSet.getString("submit_time"));
 				writeOff.setSubmitUser(resultSet.getString("submit_user"));
 				writeOff.setType(resultSet.getString("type"));
+				writeOff.setSignPic(resultSet.getString("sign_pic"));
 				list.add(writeOff);
 			}
 			connection.close();
@@ -221,13 +222,14 @@ public class NeedDataHelper extends BaseDataHelper{
 		Connection connection = getConnection();
 		PreparedStatement stat = null;
 		try {
-			stat = connection.prepareStatement("INSERT INTO write_off(need_id, amount, submit_time, reason, submit_user, type) VALUES (?,?,?,?,?,?)");
+			stat = connection.prepareStatement("INSERT INTO write_off(need_id, amount, submit_time, reason, submit_user, type, sign_pic) VALUES (?,?,?,?,?,?,?)");
 			stat.setInt(1, needId);
 			stat.setInt(2, writeOff.getAmount());
 			stat.setString(3, writeOff.getSubmitTime());
 			stat.setString(4, writeOff.getReasonText());
 			stat.setString(5, writeOff.getSubmitUser());
 			stat.setString(6, writeOff.getType());
+			stat.setString(7, writeOff.getSignPic());
 			int count = stat.executeUpdate();
 			if (count == 1) {
 				return true;

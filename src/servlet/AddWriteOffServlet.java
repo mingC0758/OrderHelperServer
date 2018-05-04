@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.ResultBean;
 import bean.WriteOff;
+import data.NeedDataHelper;
 import util.Constant;
 import util.Util;
 
@@ -37,10 +38,9 @@ public class AddWriteOffServlet extends HttpServlet {
 			//初始化
 			SmartUpload smartUpload = new SmartUpload();
 			smartUpload.initialize(this.getServletConfig(), request, response);
-			smartUpload.upload();
-			//获取writeOff数据的json字符串，默认是GBK，需要转utf-8
+			smartUpload.upload("utf-8");
+			//获取writeOff数据的json字符串
 			String json = smartUpload.getRequest().getParameter("writeOff");
-			json = new String(json.getBytes("GBK"), "utf-8");
 			System.out.println("json:" + json);
 			//将json转成对象
 			WriteOff writeOff = new Gson().fromJson(json, WriteOff.class);
@@ -58,9 +58,17 @@ public class AddWriteOffServlet extends HttpServlet {
 				//保存
 				file.saveAs(savePath);
 				System.out.println("保存成功：" + savePath);
+				writeOff.setSignPic(savePath);
 			}
-			ResultBean resultBean = new ResultBean(1, "ok");
-			response.getWriter().write(JSONObject.fromObject(resultBean).toString());
+			boolean result = NeedDataHelper.insertWriteOff(writeOff.getNeedId(), writeOff);
+			if (result) {
+				ResultBean resultBean = new ResultBean(1, "ok");
+				response.getWriter().write(JSONObject.fromObject(resultBean).toString());
+			} else {
+				ResultBean resultBean = new ResultBean(-1, "插入数据库失败！");
+				response.getWriter().write(JSONObject.fromObject(resultBean).toString());
+			}
+
 		} catch (SmartUploadException e) {
 			e.printStackTrace();
 			System.out.println("保存失败！");

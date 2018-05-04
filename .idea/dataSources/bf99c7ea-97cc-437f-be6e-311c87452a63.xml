@@ -552,7 +552,11 @@
       <Position>7</Position>
       <DataType>varchar(10)|0</DataType>
     </column>
-    <key id="138" parent="22" name="PRIMARY">
+    <column id="138" parent="22" name="sign_pic">
+      <Position>8</Position>
+      <DataType>varchar(199)|0</DataType>
+    </column>
+    <key id="139" parent="22" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
