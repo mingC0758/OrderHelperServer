@@ -58,7 +58,7 @@ public class AddWriteOffServlet extends HttpServlet {
 				//保存
 				file.saveAs(savePath);
 				System.out.println("保存成功：" + savePath);
-				writeOff.setSignPic(savePath);
+				writeOff.setSignPic(Constant.BASE_URL + Constant.UPLOAD_PATH + "/" + name + ".jpg");
 			}
 			boolean result = NeedDataHelper.insertWriteOff(writeOff.getNeedId(), writeOff);
 			if (result) {
