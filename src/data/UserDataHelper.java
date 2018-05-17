@@ -18,9 +18,10 @@ public class UserDataHelper extends BaseDataHelper{
 
 	public static String ACCOUNT_NOT_FOUNT = "Account not found";
 	public static String PWD_INCORRECT = "Password incorrect";
-	public static String CORRECT = "correct";
+	public static String CORRECT = "Correct";
+	public static String TOKEN_EXPIRE = "Token expire";
 
-	public static boolean insertUser(User user) {
+	public static String insertUser(User user) {
 		Connection connection = getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO user(account, password, name, role, duty,higher) VALUES(?,?,?,?,?,?) ");
@@ -31,12 +32,13 @@ public class UserDataHelper extends BaseDataHelper{
 			statement.setString(5, user.getDuty());
 			statement.setString(6, user.getHigher());
 			if (1 == statement.executeUpdate()) {
-				return true;
+				return CORRECT;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return e.getMessage();
 		}
-		return false;
+		return "插入无效 count != 1";
 	}
 
 	/***
@@ -44,19 +46,20 @@ public class UserDataHelper extends BaseDataHelper{
 	 * @param user
 	 * @return
 	 */
-	public static boolean updateUser(User user) {
+	public static String updateUser(User user) {
 		Connection connection = getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement("UPDATE user SET password=? WHERE id=?");
 			statement.setString(1, user.getPassword());
 			statement.setInt(2, user.getId());
 			if (1 == statement.executeUpdate()) {
-				return true;
+				return CORRECT;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+			return e.getMessage();
 		}
-		return false;
+		return "更新无效 count != 1";
 	}
 
 	public static boolean userExists(User user) {
@@ -73,6 +76,45 @@ public class UserDataHelper extends BaseDataHelper{
 		return false;
 	}
 
+	public static boolean updateToken(String account, String token) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("UPDATE user SET token=? WHERE account=?");
+			statement.setString(1, token);
+			statement.setString(2, account);
+			if (1 == statement.executeUpdate()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public static String checkToken(String account, String givenToken) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT * from user WHERE account=?");
+			statement.setString(1, account);
+			ResultSet resultSet = statement.executeQuery();
+			String token = null;
+			if (resultSet.next()) {
+				token = resultSet.getString("token");
+			}
+			//如果没找到token为null
+			if (token == null) {
+				return ACCOUNT_NOT_FOUNT;   //帐号未找到
+			}
+			if (! token.equals(givenToken)) {
+				return TOKEN_EXPIRE;   //密码不对
+			}
+			return CORRECT; //正确
+		}catch (SQLException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
+	
 	public static String checkAccount(String account, String password) {
 		Connection connection = getConnection();
 		try {

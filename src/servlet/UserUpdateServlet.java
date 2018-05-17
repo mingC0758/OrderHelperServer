@@ -30,19 +30,19 @@ public class UserUpdateServlet extends HttpServlet {
 
 		Gson gson = new Gson();
 		User user = gson.fromJson(request.getReader(), User.class);
-		boolean result = false;
+		String result;
 		if (user.getId() != 0 && UserDataHelper.userExists(user)) {
 			result = UserDataHelper.updateUser(user);
 		} else {
 			result = UserDataHelper.insertUser(user);
 		}
 		ResultBean resultBean = new ResultBean();
-		if (result) {
+		if (result.equals(UserDataHelper.CORRECT)) {
 			resultBean.setCode(1);
 			resultBean.setMsg("ok");
 		} else {
 			resultBean.setCode(-1);
-			resultBean.setMsg("err");
+			resultBean.setMsg(result);
 		}
 		response.getWriter().write(JSONObject.fromObject(resultBean).toString());
 	}

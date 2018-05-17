@@ -3,6 +3,7 @@ package servlet;
 import net.sf.json.JSONObject;
 
 import java.io.IOException;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,15 +28,34 @@ public class LoginServlet extends HttpServlet {
 
 		String account = request.getParameter("account");
 		String password = request.getParameter("password");
+		String token = request.getParameter("token");
+		System.out.println("acount:" + account + " token:" + token);
+		String ret;
 		ResultBean resultBean = new ResultBean();
-		String ret = UserDataHelper.checkAccount(account, password);
-		if (UserDataHelper.CORRECT.equals(ret)) {
-			resultBean.setCode(1);
-			resultBean.setMsg("ok");
+		if (token != null && ! token.equals("")) {
+			//检查token和account即可
+			ret = UserDataHelper.checkToken(account, token);
+			if (UserDataHelper.CORRECT.equals(ret)) {
+				resultBean.setCode(1);
+				resultBean.setMsg("ok");
+			} else {
+				resultBean.setCode(-1);
+				resultBean.setMsg(ret);
+			}
 		} else {
-			resultBean.setCode(-1);
-			resultBean.setMsg(ret);
+			ret = UserDataHelper.checkAccount(account, password);
+			if (UserDataHelper.CORRECT.equals(ret)) {
+				//更新token
+				String newToken = UUID.randomUUID().toString();
+				UserDataHelper.updateToken(account, newToken);
+				resultBean.setCode(1);
+				resultBean.setMsg(newToken);
+			} else {
+				resultBean.setCode(-1);
+				resultBean.setMsg(ret);
+			}
 		}
+
 		response.getWriter().write(JSONObject.fromObject(resultBean).toString());
 	}
 
