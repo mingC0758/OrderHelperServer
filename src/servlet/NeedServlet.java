@@ -1,10 +1,14 @@
 package servlet;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import net.sf.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +20,8 @@ import bean.ResultBean;
 import data.NeedDataHelper;
 
 /**
+ * 需求提交
+ *
  * @author mingC
  * @date 2018/3/23
  */
@@ -26,23 +32,37 @@ public class NeedServlet extends HttpServlet {
 		//提交需求
 		//设置utf8编码
 		response.setCharacterEncoding("utf-8");
-		response.setHeader("content-type","text/html;charset=UTF-8");
+		response.setHeader("content-type", "text/html;charset=UTF-8");
 
-//		int eateryCode = Integer.parseInt(request.getParameter("eateryCode"));
-//		int varietyId = Integer.parseInt(request.getParameter("varietyId"));
-//		String varietyName = request.getParameter("varietyName");
-//		int amount = Integer.parseInt(request.getParameter("amount"));
-//		String specification = request.getParameter("specification");
-//		Double price = Double.parseDouble(request.getParameter("price"));
-		Gson gson = new Gson();
-		Requirement requirement = gson.fromJson(request.getReader(), Requirement.class);
-		//		Requirement requirement = new Requirement(eateryCode, varietyName, specification, varietyId, amount, price);
-		boolean res = NeedDataHelper.insertNeed(requirement);
-		if (res) {
-			JSONObject object = JSONObject.fromObject(new ResultBean(1, "insert ok"));
-			response.getWriter().write(object.toString());
+		String type = request.getParameter("type");
+		if (null == type || "".equals(type)) {
+			//单个需求上传
+			Gson gson = new Gson();
+			Requirement requirement = gson.fromJson(request.getReader(), Requirement.class);
+			//		Requirement requirement = new Requirement(eateryCode, varietyName, specification, varietyId, amount, price);
+			boolean res = NeedDataHelper.insertNeed(requirement);
+			if (res) {
+				JSONObject object = JSONObject.fromObject(new ResultBean(1, "insert ok"));
+				response.getWriter().write(object.toString());
+			} else {
+				JSONObject object = JSONObject.fromObject(new ResultBean(-1, "insert error"));
+				response.getWriter().write(object.toString());
+			}
 		} else {
-			JSONObject object = JSONObject.fromObject(new ResultBean(-1, "insert error"));
+			//需求列表上传
+			Gson gson = new Gson();
+			Type listType = new TypeToken<ArrayList<Requirement>>() {}.getType();
+			List<Requirement> requirementList = gson.fromJson(request.getReader(), listType);
+			//		Requirement requirement = new Requirement(eateryCode, varietyName, specification, varietyId, amount, price);
+			for (Requirement requirement : requirementList) {
+				boolean res = NeedDataHelper.insertNeed(requirement);
+				if (!res) {
+					JSONObject object = JSONObject.fromObject(new ResultBean(-1, "insert error"));
+					response.getWriter().write(object.toString());
+					return;
+				}
+			}
+			JSONObject object = JSONObject.fromObject(new ResultBean(1, "insert ok"));
 			response.getWriter().write(object.toString());
 		}
 	}

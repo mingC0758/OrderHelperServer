@@ -64,6 +64,22 @@
 		<servlet-name>WriteOffSignUploadServlet</servlet-name>
 		<servlet-class>servlet.WriteOffSignUploadServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>OrderJiesuanServlet</servlet-name>
+		<servlet-class>servlet.OrderJiesuanServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>servlet.LoginServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserGetServlet</servlet-name>
+		<servlet-class>servlet.UserGetServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>UserUpdateServlet</servlet-name>
+		<servlet-class>servlet.UserUpdateServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>NeedServlet</servlet-name>
@@ -110,6 +126,10 @@
 		<url-pattern>/Order/receipt</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
+		<servlet-name>OrderJiesuanServlet</servlet-name>
+		<url-pattern>/Order/jiesuan</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
 		<servlet-name>AddWriteOffServlet</servlet-name>
 		<url-pattern>/Need/addWriteOff</url-pattern>
 	</servlet-mapping>
@@ -124,5 +144,17 @@
 	<servlet-mapping>
 		<servlet-name>WriteOffSignUploadServlet</servlet-name>
 		<url-pattern>/Need/uploadWriteOffSign</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/User/login</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserGetServlet</servlet-name>
+		<url-pattern>/User/get</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UserUpdateServlet</servlet-name>
+		<url-pattern>/User/update</url-pattern>
 	</servlet-mapping>
 </web-app>

@@ -24,14 +24,51 @@ public class OrderDataHelper extends BaseDataHelper{
 	}
 
 	/**
-	 * 获取历史订单（已收货和已结算）
+	 * 结算订单
+	 * @param orderId
+	 * @return
+	 */
+	public static boolean jiesuanOrder(int orderId) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("UPDATE purchase_order SET state='已结算' WHERE id=?");
+			statement.setInt(1, orderId);
+			if (1 == statement.executeUpdate()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	/**
+	 * 获取历史订单（已结算）
 	 * @return 采购订单列表
 	 */
 	public static List<PurchaseOrder> getHistoryOrders() {
 		List<PurchaseOrder> orderList = new LinkedList<>();
 		Connection connection = getConnection();
 		try {
-			PreparedStatement orderStat = connection.prepareStatement("SELECT * FROM (purchase_order,plan) WHERE purchase_order.planId=plan.id AND (purchase_order.state='已收货' OR purchase_order.state='已结算') ORDER BY purchase_order.id DESC");
+			PreparedStatement orderStat = connection.prepareStatement("SELECT * FROM (purchase_order,plan) WHERE purchase_order.planId=plan.id AND purchase_order.state='已结算' ORDER BY purchase_order.id DESC");
+			ResultSet orderRs = orderStat.executeQuery();
+			orderList = RsToOrderList(orderRs);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return orderList;
+	}
+
+	/**
+	 * 获取已收货订单（已收货）
+	 * @return 采购订单列表
+	 */
+	public static List<PurchaseOrder> getReceivedOrders() {
+		List<PurchaseOrder> orderList = new LinkedList<>();
+		Connection connection = getConnection();
+		try {
+			PreparedStatement orderStat = connection.prepareStatement("SELECT * FROM (purchase_order,plan) WHERE purchase_order.planId=plan.id AND purchase_order.state='已收货' ORDER BY purchase_order.id DESC");
 			ResultSet orderRs = orderStat.executeQuery();
 			orderList = RsToOrderList(orderRs);
 
@@ -65,6 +102,24 @@ public class OrderDataHelper extends BaseDataHelper{
 			e.printStackTrace();
 		}
 		return orderList;
+	}
+
+	/**
+	 * 获取订单号对应的唯一订单
+	 * @param orderId
+	 * @return
+	 */
+	public static PurchaseOrder getSingleOrder(int orderId) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM purchase_order, plan WHERE purchase_order.planId=plan.id AND purchase_order.id=?");
+			statement.setInt(1, orderId);
+			ResultSet resultSet = statement.executeQuery();
+			return RsToOrderList(resultSet).get(0);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public static List<PurchaseOrder> RsToOrderList(ResultSet orderRs) throws SQLException {

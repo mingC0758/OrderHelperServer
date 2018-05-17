@@ -8,6 +8,9 @@ public class ResultBean {
 	int code;
 	String msg;
 
+	public ResultBean() {
+	}
+
 	public ResultBean(int code, String msg) {
 		this.code = code; //1是成功
 		this.msg = msg;
