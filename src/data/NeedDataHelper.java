@@ -1,6 +1,5 @@
 package data;
 
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.plaf.nimbus.State;
 
 import bean.Requirement;
 import bean.WriteOff;
@@ -19,55 +17,60 @@ import util.Util;
  * @author mingC
  * @date 2018/3/25
  */
-public class NeedDataHelper extends BaseDataHelper{
+public class NeedDataHelper extends BaseDataHelper {
 
 	/**
 	 * 添加需求（未审核）同时合并相同档口的相同产品需求
 	 */
 	public static boolean insertNeed(Requirement requirement) {
-		try {
 		Connection connection = getConnection();
-		//先判断该档口的该产品是否存在，若存在则增加数量即可
-		PreparedStatement statCheck = connection.prepareStatement("SELECT * FROM need WHERE state='审核中' AND  store_name=? AND varietyCode=?");
-		statCheck.setString(1, requirement.getStoreName());
-		statCheck.setInt(2, requirement.getVarietyCode());
-		ResultSet rsCheck = statCheck.executeQuery();
-		if (rsCheck.next()) {
-			System.out.println("需求已经存在：" + requirement.getVarietyName());
-			int amount = rsCheck.getInt("amount");
-			amount += requirement.getAmount();
-			int id = rsCheck.getInt("id");
-			//更新数量
-			PreparedStatement statUpdate = connection.prepareStatement("UPDATE need SET amount=? WHERE id=?");
-			statUpdate.setInt(1, amount);
-			statUpdate.setInt(2, id);
-			statUpdate.executeUpdate();
-		} else {
-			//不存在相同，插入新需求
-			System.out.println("需求不存在，新插入：" + requirement.getVarietyName());
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO need(eateryCode, varietyName, specification, varietyCode, amount, price, state, submit_time, actual_amount, store_name) VALUES (?,?,?,?,?,?,?,?,?,?)");
-			statement.setInt(1, requirement.getEateryCode());
-			statement.setString(2, requirement.getVarietyName());
-			statement.setString(3, requirement.getSpecification());
-			statement.setInt(4, requirement.getVarietyCode());
-			statement.setInt(5, requirement.getAmount());
-			statement.setDouble(6, requirement.getPrice());
-			statement.setString(7, "审核中");
-			statement.setString(8, Util.getDateTimePretty());
-			statement.setInt(9, requirement.getAmount());
-			statement.setString(10, requirement.getStoreName());
-			statement.executeUpdate();
-		}
-
+		try {
+			//先判断该档口的该产品是否存在，若存在则增加数量即可
+			PreparedStatement statCheck = connection.prepareStatement(
+					"SELECT * FROM need WHERE state='审核中' AND  store_name=? AND varietyCode=?");
+			statCheck.setString(1, requirement.getStoreName());
+			statCheck.setInt(2, requirement.getVarietyCode());
+			ResultSet rsCheck = statCheck.executeQuery();
+			if (rsCheck.next()) {
+				System.out.println("需求已经存在：" + requirement.getVarietyName());
+				int amount = rsCheck.getInt("amount");
+				amount += requirement.getAmount();
+				int id = rsCheck.getInt("id");
+				//更新数量
+				PreparedStatement statUpdate = connection.prepareStatement(
+						"UPDATE need SET amount=? WHERE id=?");
+				statUpdate.setInt(1, amount);
+				statUpdate.setInt(2, id);
+				statUpdate.executeUpdate();
+			} else {
+				//不存在相同，插入新需求
+				System.out.println("需求不存在，新插入：" + requirement.getVarietyName());
+				PreparedStatement statement = connection.prepareStatement(
+						"INSERT INTO need(eateryCode, varietyName, specification, varietyCode, amount, price, state, submit_time, actual_amount, store_name) VALUES (?,?,?,?,?,?,?,?,?,?)");
+				statement.setInt(1, requirement.getEateryCode());
+				statement.setString(2, requirement.getVarietyName());
+				statement.setString(3, requirement.getSpecification());
+				statement.setInt(4, requirement.getVarietyCode());
+				statement.setInt(5, requirement.getAmount());
+				statement.setDouble(6, requirement.getPrice());
+				statement.setString(7, "审核中");
+				statement.setString(8, Util.getDateTimePretty());
+				statement.setInt(9, requirement.getAmount());
+				statement.setString(10, requirement.getStoreName());
+				statement.executeUpdate();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			closeConnection(connection);
 		}
 		return true;
 	}
 
 	/**
 	 * 获取食堂所有需求
+	 *
 	 * @param eateryCode
 	 * @return
 	 */
@@ -75,7 +78,8 @@ public class NeedDataHelper extends BaseDataHelper{
 		List<Requirement> list = new ArrayList<>();
 		Connection connection = getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement("SELECT * FROM need,variety WHERE need.varietyCode=variety.id AND eateryCode = ?");
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT * FROM need,variety WHERE need.varietyCode=variety.id AND eateryCode = ?");
 			statement.setInt(1, eateryCode);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
@@ -85,12 +89,15 @@ public class NeedDataHelper extends BaseDataHelper{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeConnection(connection);
 		}
 		return list;
 	}
 
 	/**
 	 * 获取某状态下的需求
+	 *
 	 * @param eateryCode
 	 * @param state
 	 * @return
@@ -99,7 +106,8 @@ public class NeedDataHelper extends BaseDataHelper{
 		List<Requirement> list = new ArrayList<>();
 		Connection connection = getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement("SELECT * FROM need,variety WHERE need.varietyCode=variety.id and state = ? AND eateryCode = ?");
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT * FROM need,variety WHERE need.varietyCode=variety.id and state = ? AND eateryCode = ?");
 			statement.setString(1, state);
 			statement.setInt(2, eateryCode);
 			ResultSet resultSet = statement.executeQuery();
@@ -110,6 +118,8 @@ public class NeedDataHelper extends BaseDataHelper{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			closeConnection(connection);
 		}
 		return list;
 	}
@@ -145,12 +155,15 @@ public class NeedDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return list;
 	}
 
 	/**
 	 * 将需求状态设为：已审核
+	 *
 	 * @return
 	 */
 	public static boolean setNeedAudited(List<Requirement> requirements) {
@@ -164,24 +177,28 @@ public class NeedDataHelper extends BaseDataHelper{
 			StringBuilder builder = new StringBuilder();
 			for (int i = 0; i < requirements.size(); i++) {
 				builder.append(String.valueOf(requirements.get(i).getNeedId()));
-				if (i != requirements.size()-1) {
+				if (i != requirements.size() - 1) {
 					builder.append(',');
 				}
 			}
 			String param = builder.toString();
 			System.out.println("拼接结果：" + param);
-			statement = connection.prepareStatement("UPDATE need SET state = '已审核' WHERE id IN (" + param + ")");
+			statement = connection.prepareStatement(
+					"UPDATE need SET state = '已审核' WHERE id IN (" + param + ")");
 			int row = statement.executeUpdate();
 			System.out.println("影响：" + row);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			closeConnection(connection);
 		}
 		return true;
 	}
 
 	/**
 	 * 查找特定订单下特定产品的冲销记录列表
+	 *
 	 * @param needId
 	 * @return
 	 */
@@ -189,7 +206,8 @@ public class NeedDataHelper extends BaseDataHelper{
 		List<WriteOff> list = new LinkedList<>();
 		Connection connection = getConnection();
 		try {
-			PreparedStatement stat = connection.prepareStatement("SELECT * FROM write_off WHERE need_id=?");
+			PreparedStatement stat = connection.prepareStatement(
+					"SELECT * FROM write_off WHERE need_id=?");
 			stat.setInt(1, needId);
 			ResultSet resultSet = stat.executeQuery();
 			while (resultSet.next()) {
@@ -203,9 +221,10 @@ public class NeedDataHelper extends BaseDataHelper{
 				writeOff.setSignPic(resultSet.getString("sign_pic"));
 				list.add(writeOff);
 			}
-			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 
 		return list;
@@ -213,6 +232,7 @@ public class NeedDataHelper extends BaseDataHelper{
 
 	/**
 	 * 插入特定订单下特定产品的冲销记录
+	 *
 	 * @param orderId
 	 * @param needId
 	 * @param writeOff
@@ -222,7 +242,8 @@ public class NeedDataHelper extends BaseDataHelper{
 		Connection connection = getConnection();
 		PreparedStatement stat = null;
 		try {
-			stat = connection.prepareStatement("INSERT INTO write_off(need_id, amount, submit_time, reason, submit_user, type, sign_pic) VALUES (?,?,?,?,?,?,?)");
+			stat = connection.prepareStatement(
+					"INSERT INTO write_off(need_id, amount, submit_time, reason, submit_user, type, sign_pic) VALUES (?,?,?,?,?,?,?)");
 			stat.setInt(1, needId);
 			stat.setInt(2, writeOff.getAmount());
 			stat.setString(3, writeOff.getSubmitTime());
@@ -236,6 +257,8 @@ public class NeedDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return false;
 	}
@@ -244,29 +267,18 @@ public class NeedDataHelper extends BaseDataHelper{
 		Connection connection = getConnection();
 		try {
 			//更新实收数量
-			PreparedStatement statNeed = connection.prepareStatement("UPDATE need SET actual_amount=? WHERE id=?");
+			PreparedStatement statNeed = connection.prepareStatement(
+					"UPDATE need SET actual_amount=? WHERE id=?");
 			statNeed.setInt(1, actualAmount);
 			statNeed.setInt(2, needId);
 			statNeed.executeUpdate();
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			try {
-				connection.rollback();
-				connection.close();
-			} catch (SQLException e1) {
-				e1.printStackTrace();
-			}
+		} finally {
+			closeConnection(connection);
 		}
 		return false;
 	}
 
-
-
-	public static void main(String[] args) {
-		List<String> urls = new LinkedList<>();
-		urls.add("need=95 图片Url1");
-		urls.add("need=95 图片Url2");
-		urls.add("need=95 图片Url3");
-	}
 }

@@ -38,6 +38,8 @@ public class OrderDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return false;
 	}
@@ -56,6 +58,8 @@ public class OrderDataHelper extends BaseDataHelper{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return orderList;
 	}
@@ -74,6 +78,8 @@ public class OrderDataHelper extends BaseDataHelper{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return orderList;
 	}
@@ -87,6 +93,8 @@ public class OrderDataHelper extends BaseDataHelper{
 			orderList = RsToOrderList(orderRs);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return orderList;
 	}
@@ -100,6 +108,8 @@ public class OrderDataHelper extends BaseDataHelper{
 			orderList = RsToOrderList(orderRs);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return orderList;
 	}
@@ -118,6 +128,8 @@ public class OrderDataHelper extends BaseDataHelper{
 			return RsToOrderList(resultSet).get(0);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return null;
 	}
@@ -182,6 +194,8 @@ public class OrderDataHelper extends BaseDataHelper{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
+		} finally {
+			closeConnection(connection);
 		}
 		if (count == 1) {
 			return true;
@@ -206,6 +220,8 @@ public class OrderDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		//更新产品实收数目
 		boolean result = false;
@@ -234,6 +250,8 @@ public class OrderDataHelper extends BaseDataHelper{
 			return 1 == statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return false;
 	}
@@ -247,6 +265,8 @@ public class OrderDataHelper extends BaseDataHelper{
 			return 1 == statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return false;
 	}

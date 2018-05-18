@@ -54,6 +54,8 @@ public class VenderDataHelper extends BaseDataHelper{
 		} catch (SQLException e) {
 			System.out.println("VenderDataHelper:" + e.getMessage());
 			return RET_Duplicate;
+		} finally {
+			closeConnection(connection);
 		}
 	}
 
@@ -75,6 +77,8 @@ public class VenderDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return list;
 	}

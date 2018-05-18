@@ -39,6 +39,8 @@ public class UserDataHelper extends BaseDataHelper{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return e.getMessage();
+		} finally {
+			closeConnection(connection);
 		}
 		return "插入无效 count != 1";
 	}
@@ -75,6 +77,8 @@ public class UserDataHelper extends BaseDataHelper{
 			return "del count != 1";
 		} catch (SQLException e) {
 			return e.getMessage();
+		} finally {
+			closeConnection(connection);
 		}
 	}
 
@@ -88,6 +92,8 @@ public class UserDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return false;
 	}
@@ -103,6 +109,8 @@ public class UserDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return false;
 	}
@@ -128,6 +136,8 @@ public class UserDataHelper extends BaseDataHelper{
 		}catch (SQLException e) {
 			e.printStackTrace();
 			return e.getMessage();
+		} finally {
+			closeConnection(connection);
 		}
 	}
 	
@@ -149,9 +159,11 @@ public class UserDataHelper extends BaseDataHelper{
 				return PWD_INCORRECT;   //密码不对
 			}
 			return CORRECT; //正确
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return e.getMessage();
+		} finally {
+			closeConnection(connection);
 		}
 	}
 
@@ -167,6 +179,8 @@ public class UserDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return userList;
 	}
@@ -184,6 +198,8 @@ public class UserDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return user;
 	}

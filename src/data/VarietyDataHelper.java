@@ -34,14 +34,16 @@ public class VarietyDataHelper extends BaseDataHelper{
 	}
 
 	public static List<Variety> getVarietyList(){
+		Connection connection = getConnection();
 		try {
-			Connection connection = getConnection();
 			ResultSet set = connection.createStatement().executeQuery("SELECT * FROM variety");
 			List<Variety> list = cursorToVarietys(set);
 			connection.close();
 			return list;
-		}catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return null;
 	}
@@ -53,8 +55,8 @@ public class VarietyDataHelper extends BaseDataHelper{
 	 * @return
 	 */
 	public static List<ProductBean> getProductBeanList(){
+		Connection connection = getConnection();
 		try {
-			Connection connection = getConnection();
 			ResultSet setFirst = connection.createStatement().executeQuery("SELECT DISTINCT category_first FROM variety");
 			List<ProductBean> list = new LinkedList<>();
 			//找出一级
@@ -79,18 +81,13 @@ public class VarietyDataHelper extends BaseDataHelper{
 					List<Variety> varieties = cursorToVarietys(setProduct);
 					subProduct.setVarietyList(varieties);
 				}
-
 			}
-			connection.close();
 			return list;
 		}catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return null;
-	}
-
-
-	public static void main(String[] args) {
-		System.out.println(getProductBeanList());
 	}
 }

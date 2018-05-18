@@ -62,6 +62,8 @@ public class PlanDataHelper extends BaseDataHelper{
 
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return true;
 	}
@@ -102,6 +104,8 @@ public class PlanDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return planList;
 	}
@@ -112,9 +116,9 @@ public class PlanDataHelper extends BaseDataHelper{
 	 * @return
 	 */
 	public static boolean setPlanAudited(int planCode) {
+		Connection connection = getConnection();
 		int count = 0;
 		try {
-			Connection connection = getConnection();
 			PreparedStatement statement = connection.prepareStatement("UPDATE plan SET state='通过' WHERE id=?");
 			statement.setInt(1, planCode);
 			count = statement.executeUpdate();
@@ -155,11 +159,11 @@ public class PlanDataHelper extends BaseDataHelper{
 					needInsertStat.setInt(2, requirement.getNeedId());
 					needInsertStat.executeUpdate();
 				}
-
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		if (count == 1) {
 			return true;
@@ -204,6 +208,8 @@ public class PlanDataHelper extends BaseDataHelper{
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
 		}
 		return planList;
 	}
