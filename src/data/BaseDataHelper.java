@@ -26,4 +26,13 @@ public class BaseDataHelper {
 		}
 		return conn;
 	}
+	static void closeConnection(Connection connection) {
+		try {
+			if (!connection.isClosed()) {
+				connection.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -11,6 +11,10 @@ public class ResultBean {
 	public ResultBean() {
 	}
 
+	public static ResultBean getOkResultBean() {
+		return new ResultBean(1, "ok");
+	}
+
 	public ResultBean(int code, String msg) {
 		this.code = code; //1是成功
 		this.msg = msg;

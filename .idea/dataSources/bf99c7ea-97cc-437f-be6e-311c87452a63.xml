@@ -448,141 +448,169 @@
     <column id="113" parent="19" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+      <SequenceIdentity>1</SequenceIdentity>
     </column>
     <column id="114" parent="19" name="code">
       <Position>2</Position>
       <DataType>varchar(199)|0</DataType>
+      <NotNull>1</NotNull>
     </column>
     <column id="115" parent="19" name="name">
       <Position>3</Position>
-      <DataType>varchar(20)|0</DataType>
+      <DataType>varchar(199)|0</DataType>
     </column>
-    <column id="116" parent="20" name="id">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="117" parent="20" name="type">
-      <Position>2</Position>
-      <Comment>入仓、出仓、冲销、退货</Comment>
-      <DataType>varchar(2)|0</DataType>
-    </column>
-    <column id="118" parent="20" name="order_code">
-      <Position>3</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="119" parent="20" name="plan_code">
+    <column id="116" parent="19" name="create_time">
       <Position>4</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>varchar(25)|0</DataType>
     </column>
-    <column id="120" parent="20" name="eatery_code">
-      <Position>5</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="121" parent="20" name="warehouse_code">
-      <Position>6</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="122" parent="20" name="variety_code">
-      <Position>7</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="123" parent="20" name="process_amount">
-      <Position>8</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="124" parent="20" name="process_price">
-      <Position>9</Position>
-      <DataType>double|0</DataType>
-    </column>
-    <column id="125" parent="20" name="state">
-      <Position>10</Position>
-      <DataType>varchar(2)|0</DataType>
-    </column>
-    <column id="126" parent="20" name="warehouse_time">
-      <Position>11</Position>
-      <DataType>varchar(20)|0</DataType>
-    </column>
-    <column id="127" parent="20" name="warrant_code">
-      <Position>12</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="128" parent="20" name="submit_time">
-      <Position>13</Position>
-      <DataType>varchar(20)|0</DataType>
-    </column>
-    <column id="129" parent="20" name="submit_user_code">
-      <Position>14</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="130" parent="21" name="id">
-      <Position>1</Position>
-      <DataType>int(11)|0</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <column id="131" parent="21" name="warrant_code">
-      <Position>2</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="132" parent="21" name="submit_user_code">
-      <Position>3</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="133" parent="21" name="audit_user_code">
-      <Position>4</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="134" parent="21" name="submit_time">
-      <Position>5</Position>
-      <DataType>varchar(20)|0</DataType>
-    </column>
-    <column id="135" parent="21" name="audit_time">
-      <Position>6</Position>
-      <DataType>varchar(20)|0</DataType>
-    </column>
-    <column id="136" parent="21" name="warrant_picture">
-      <Position>7</Position>
-      <DataType>varchar(20)|0</DataType>
-    </column>
-    <key id="137" parent="21" name="PRIMARY">
+    <index id="117" parent="19" name="vender_code_uindex">
+      <ColNames>code</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <index id="118" parent="19" name="vender_name_uindex">
+      <ColNames>name</ColNames>
+      <Unique>1</Unique>
+    </index>
+    <key id="119" parent="19" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="138" parent="22" name="id">
+    <key id="120" parent="19" name="vender_code_uindex">
+      <ColNames>code</ColNames>
+      <UnderlyingIndexName>vender_code_uindex</UnderlyingIndexName>
+    </key>
+    <key id="121" parent="19" name="vender_name_uindex">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>vender_name_uindex</UnderlyingIndexName>
+    </key>
+    <column id="122" parent="20" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="123" parent="20" name="type">
+      <Position>2</Position>
+      <Comment>入仓、出仓、冲销、退货</Comment>
+      <DataType>varchar(2)|0</DataType>
+    </column>
+    <column id="124" parent="20" name="order_code">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="125" parent="20" name="plan_code">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="126" parent="20" name="eatery_code">
+      <Position>5</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="127" parent="20" name="warehouse_code">
+      <Position>6</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="128" parent="20" name="variety_code">
+      <Position>7</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="129" parent="20" name="process_amount">
+      <Position>8</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="130" parent="20" name="process_price">
+      <Position>9</Position>
+      <DataType>double|0</DataType>
+    </column>
+    <column id="131" parent="20" name="state">
+      <Position>10</Position>
+      <DataType>varchar(2)|0</DataType>
+    </column>
+    <column id="132" parent="20" name="warehouse_time">
+      <Position>11</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="133" parent="20" name="warrant_code">
+      <Position>12</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="134" parent="20" name="submit_time">
+      <Position>13</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="135" parent="20" name="submit_user_code">
+      <Position>14</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="136" parent="21" name="id">
+      <Position>1</Position>
+      <DataType>int(11)|0</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="137" parent="21" name="warrant_code">
+      <Position>2</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="138" parent="21" name="submit_user_code">
+      <Position>3</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="139" parent="21" name="audit_user_code">
+      <Position>4</Position>
+      <DataType>int(11)|0</DataType>
+    </column>
+    <column id="140" parent="21" name="submit_time">
+      <Position>5</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="141" parent="21" name="audit_time">
+      <Position>6</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="142" parent="21" name="warrant_picture">
+      <Position>7</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <key id="143" parent="21" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="144" parent="22" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="139" parent="22" name="need_id">
+    <column id="145" parent="22" name="need_id">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="140" parent="22" name="amount">
+    <column id="146" parent="22" name="amount">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="141" parent="22" name="submit_time">
+    <column id="147" parent="22" name="submit_time">
       <Position>4</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="142" parent="22" name="reason">
+    <column id="148" parent="22" name="reason">
       <Position>5</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="143" parent="22" name="submit_user">
+    <column id="149" parent="22" name="submit_user">
       <Position>6</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="144" parent="22" name="type">
+    <column id="150" parent="22" name="type">
       <Position>7</Position>
       <DataType>varchar(10)|0</DataType>
     </column>
-    <column id="145" parent="22" name="sign_pic">
+    <column id="151" parent="22" name="sign_pic">
       <Position>8</Position>
       <DataType>varchar(199)|0</DataType>
     </column>
-    <key id="146" parent="22" name="PRIMARY">
+    <key id="152" parent="22" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
