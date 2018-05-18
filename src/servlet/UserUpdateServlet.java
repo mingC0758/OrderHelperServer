@@ -28,17 +28,18 @@ public class UserUpdateServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setHeader("content-type","text/html;charset=UTF-8");
 
-//		String delete = request.getParameter("delete");
+		String type = request.getParameter("type");
 		Gson gson = new Gson();
 		User user = gson.fromJson(request.getReader(), User.class);
 		String result;
-//		if (delete.equals("true")) {
-//			//删除用户
-//		}
-		if (user.getId() != 0 && UserDataHelper.userExists(user)) {
-			result = UserDataHelper.updateUser(user);
-		} else {
+		if ("add".equals(type)) {
 			result = UserDataHelper.insertUser(user);
+			System.out.println("添加用户：" + user.getName());
+		} else if ("del".equals(type)) {
+			result = UserDataHelper.delUser(user);
+			System.out.println("删除用户：" + user.getName());
+		} else {
+			result = "Request params error";
 		}
 		ResultBean resultBean = new ResultBean();
 		if (result.equals(UserDataHelper.CORRECT)) {

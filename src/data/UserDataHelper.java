@@ -64,6 +64,20 @@ public class UserDataHelper extends BaseDataHelper{
 		return "更新无效 count != 1";
 	}
 
+	public static String delUser(User user) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM user WHERE id=?");
+			statement.setInt(1, user.getId());
+			if (statement.executeUpdate() == 1) {
+				return CORRECT;
+			}
+			return "del count != 1";
+		} catch (SQLException e) {
+			return e.getMessage();
+		}
+	}
+
 	public static boolean userExists(User user) {
 		Connection connection = getConnection();
 		try {
