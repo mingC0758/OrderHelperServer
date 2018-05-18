@@ -80,6 +80,10 @@
 		<servlet-name>UserUpdateServlet</servlet-name>
 		<servlet-class>servlet.UserUpdateServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>VenderGetServlet</servlet-name>
+		<servlet-class>servlet.VenderGetServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>NeedServlet</servlet-name>
@@ -156,5 +160,9 @@
 	<servlet-mapping>
 		<servlet-name>UserUpdateServlet</servlet-name>
 		<url-pattern>/User/update</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>VenderGetServlet</servlet-name>
+		<url-pattern>/Vender/get</url-pattern>
 	</servlet-mapping>
 </web-app>

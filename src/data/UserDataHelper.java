@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import bean.User;
+import util.Util;
 
 /**
  * 用户管理、帐号管理
@@ -24,13 +25,14 @@ public class UserDataHelper extends BaseDataHelper{
 	public static String insertUser(User user) {
 		Connection connection = getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO user(account, password, name, role, duty,higher) VALUES(?,?,?,?,?,?) ");
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO user(account, password, name, role, duty,higher, create_time) VALUES(?,?,?,?,?,?,?) ");
 			statement.setString(1, user.getAccount());
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getName());
 			statement.setString(4, user.getRole());
 			statement.setString(5, user.getDuty());
 			statement.setString(6, user.getHigher());
+			statement.setString(7, Util.getDateTimePretty());
 			if (1 == statement.executeUpdate()) {
 				return CORRECT;
 			}

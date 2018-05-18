@@ -28,9 +28,13 @@ public class UserUpdateServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setHeader("content-type","text/html;charset=UTF-8");
 
+//		String delete = request.getParameter("delete");
 		Gson gson = new Gson();
 		User user = gson.fromJson(request.getReader(), User.class);
 		String result;
+//		if (delete.equals("true")) {
+//			//删除用户
+//		}
 		if (user.getId() != 0 && UserDataHelper.userExists(user)) {
 			result = UserDataHelper.updateUser(user);
 		} else {
