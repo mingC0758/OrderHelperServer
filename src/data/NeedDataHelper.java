@@ -46,8 +46,8 @@ public class NeedDataHelper extends BaseDataHelper {
 				//不存在相同，插入新需求
 				System.out.println("需求不存在，新插入：" + requirement.getVarietyName());
 				PreparedStatement statement = connection.prepareStatement(
-						"INSERT INTO need(eateryCode, varietyName, specification, varietyCode, amount, price, state, submit_time, actual_amount, store_name) VALUES (?,?,?,?,?,?,?,?,?,?)");
-				statement.setInt(1, requirement.getEateryCode());
+						"INSERT INTO need(eateryName, varietyName, specification, varietyCode, amount, price, state, submit_time, actual_amount, store_name) VALUES (?,?,?,?,?,?,?,?,?,?)");
+				statement.setString(1, requirement.getEateryName());
 				statement.setString(2, requirement.getVarietyName());
 				statement.setString(3, requirement.getSpecification());
 				statement.setInt(4, requirement.getVarietyCode());
@@ -74,13 +74,13 @@ public class NeedDataHelper extends BaseDataHelper {
 	 * @param eateryCode
 	 * @return
 	 */
-	public static List<Requirement> getNeedList(int eateryCode) {
+	public static List<Requirement> getNeedList(String eateryName) {
 		List<Requirement> list = new ArrayList<>();
 		Connection connection = getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT * FROM need,variety WHERE need.varietyCode=variety.id AND eateryCode = ?");
-			statement.setInt(1, eateryCode);
+					"SELECT * FROM need,variety WHERE need.varietyCode=variety.id AND eateryName = ?");
+			statement.setString(1, eateryName);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				Requirement requirement = getRequirement(resultSet);
@@ -98,18 +98,17 @@ public class NeedDataHelper extends BaseDataHelper {
 	/**
 	 * 获取某状态下的需求
 	 *
-	 * @param eateryCode
 	 * @param state
 	 * @return
 	 */
-	public static List<Requirement> getNeedList(int eateryCode, String state) {
+	public static List<Requirement> getNeedList(String eateryName, String state) {
 		List<Requirement> list = new ArrayList<>();
 		Connection connection = getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT * FROM need,variety WHERE need.varietyCode=variety.id and state = ? AND eateryCode = ?");
+					"SELECT * FROM need,variety WHERE need.varietyCode=variety.id and state = ? AND eateryName = ?");
 			statement.setString(1, state);
-			statement.setInt(2, eateryCode);
+			statement.setString(2, eateryName);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				Requirement requirement = getRequirement(resultSet);
@@ -129,7 +128,7 @@ public class NeedDataHelper extends BaseDataHelper {
 		requirement.setNeedId(resultSet.getInt("id"));
 		requirement.setAmount(resultSet.getInt("amount"));
 		requirement.setPrice(resultSet.getDouble("price"));
-		requirement.setEateryCode(resultSet.getInt("eateryCode"));
+		requirement.setEateryName(resultSet.getString("eateryName"));
 		requirement.setSpecification(resultSet.getString("specification"));
 		requirement.setVarietyCode(resultSet.getInt("varietyCode"));
 		requirement.setVarietyName(resultSet.getString("varietyName"));

@@ -8,8 +8,7 @@ import java.util.List;
  * @date 2018/3/17
  */
 public class PurchaseOrder{
-	//食堂编号
-	int eateryCode;
+
 	//食堂名
 	String eateryName;
 
@@ -48,15 +47,6 @@ public class PurchaseOrder{
 //
 //	//收货时间
 //	String receiveTime;
-
-
-	public int getEateryCode() {
-		return eateryCode;
-	}
-
-	public void setEateryCode(int eateryCode) {
-		this.eateryCode = eateryCode;
-	}
 
 	public String getEateryName() {
 		return eateryName;

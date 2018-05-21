@@ -11,8 +11,7 @@ public class Requirement {
 	//需求编号
 	int needId;
 
-	//食堂编号
-	int eateryCode;
+	String eateryName;
 
 	//品种名称
 	String varietyName;
@@ -47,6 +46,14 @@ public class Requirement {
 	//状态
 	String state;
 
+	public String getEateryName() {
+		return eateryName;
+	}
+
+	public void setEateryName(String eateryName) {
+		this.eateryName = eateryName;
+	}
+
 	public String getState() {
 		return state;
 	}
@@ -61,14 +68,6 @@ public class Requirement {
 
 	public void setNeedId(int needId) {
 		this.needId = needId;
-	}
-
-	public int getEateryCode() {
-		return eateryCode;
-	}
-
-	public void setEateryCode(int eateryCode) {
-		this.eateryCode = eateryCode;
 	}
 
 	public String getVarietyName() {

@@ -19,7 +19,6 @@ import bean.ResultBean;
 import bean.WriteOff;
 import data.NeedDataHelper;
 import util.Constant;
-import util.Util;
 
 /**
  * 添加冲销记录
@@ -48,9 +47,6 @@ public class AddWriteOffServlet extends HttpServlet {
 			Files files = smartUpload.getFiles();
 			for (int i = 0; i < files.getCount(); i++) {
 				com.jspsmart.upload.File file = files.getFile(i);
-				System.out.println("fileName:" + file.getFileName());
-				System.out.println("fieldName:" + file.getFieldName());
-				System.out.println("上传文件大小：" + Util.fileSizeConver(file.getSize()));
 				//获取随机字符串
 				String name = UUID.randomUUID().toString();
 				//保存路径

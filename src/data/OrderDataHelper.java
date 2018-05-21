@@ -147,7 +147,6 @@ public class OrderDataHelper extends BaseDataHelper{
 			order.setStatus(orderRs.getString("purchase_order.state"));
 			order.setSubmitTime(orderRs.getString("purchase_order.submit_time"));
 			order.setSubmitUser(orderRs.getString("purchase_order.submit_user"));
-			order.setEateryCode(orderRs.getInt("eateryCode"));
 			order.setEateryName(orderRs.getString("eateryName"));
 			order.setNoteText(orderRs.getString("note_text"));
 			order.setSignPicUrl(orderRs.getString("sign_url"));

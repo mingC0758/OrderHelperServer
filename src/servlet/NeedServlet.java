@@ -39,7 +39,6 @@ public class NeedServlet extends HttpServlet {
 			//单个需求上传
 			Gson gson = new Gson();
 			Requirement requirement = gson.fromJson(request.getReader(), Requirement.class);
-			//		Requirement requirement = new Requirement(eateryCode, varietyName, specification, varietyId, amount, price);
 			boolean res = NeedDataHelper.insertNeed(requirement);
 			if (res) {
 				JSONObject object = JSONObject.fromObject(new ResultBean(1, "insert ok"));
@@ -53,7 +52,6 @@ public class NeedServlet extends HttpServlet {
 			Gson gson = new Gson();
 			Type listType = new TypeToken<ArrayList<Requirement>>() {}.getType();
 			List<Requirement> requirementList = gson.fromJson(request.getReader(), listType);
-			//		Requirement requirement = new Requirement(eateryCode, varietyName, specification, varietyId, amount, price);
 			for (Requirement requirement : requirementList) {
 				boolean res = NeedDataHelper.insertNeed(requirement);
 				if (!res) {

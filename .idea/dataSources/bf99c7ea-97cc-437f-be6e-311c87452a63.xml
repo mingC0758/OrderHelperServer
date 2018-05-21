@@ -77,9 +77,9 @@
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="30" parent="9" name="eateryCode">
+    <column id="30" parent="9" name="eateryName">
       <Position>2</Position>
-      <DataType>int(11)|0</DataType>
+      <DataType>varchar(20)|0</DataType>
     </column>
     <column id="31" parent="9" name="varietyName">
       <Position>3</Position>
@@ -144,473 +144,469 @@
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="46" parent="12" name="eateryCode">
+    <column id="46" parent="12" name="state">
       <Position>2</Position>
-      <DataType>int(11)|0</DataType>
-    </column>
-    <column id="47" parent="12" name="state">
-      <Position>3</Position>
       <Comment>审核中、通过、不通过</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="48" parent="12" name="receiverName">
+    <column id="47" parent="12" name="receiverName">
+      <Position>3</Position>
+      <DataType>varchar(20)|0</DataType>
+    </column>
+    <column id="48" parent="12" name="receiverPhone">
       <Position>4</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="49" parent="12" name="receiverPhone">
+    <column id="49" parent="12" name="receiverAddress">
       <Position>5</Position>
-      <DataType>varchar(20)|0</DataType>
-    </column>
-    <column id="50" parent="12" name="receiverAddress">
-      <Position>6</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="51" parent="12" name="submit_time">
-      <Position>7</Position>
+    <column id="50" parent="12" name="submit_time">
+      <Position>6</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="52" parent="12" name="submit_user">
-      <Position>8</Position>
+    <column id="51" parent="12" name="submit_user">
+      <Position>7</Position>
       <DataType>varchar(5)|0</DataType>
     </column>
-    <column id="53" parent="12" name="eateryName">
-      <Position>9</Position>
+    <column id="52" parent="12" name="eateryName">
+      <Position>8</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <key id="54" parent="12" name="PRIMARY">
+    <key id="53" parent="12" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="55" parent="13" name="plan_id">
+    <column id="54" parent="13" name="plan_id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="56" parent="13" name="need_id">
+    <column id="55" parent="13" name="need_id">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="57" parent="14" name="id">
+    <column id="56" parent="14" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="58" parent="14" name="planId">
+    <column id="57" parent="14" name="planId">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="59" parent="14" name="state">
+    <column id="58" parent="14" name="state">
       <Position>3</Position>
       <DataType>varchar(10)|0</DataType>
     </column>
-    <column id="60" parent="14" name="submit_time">
+    <column id="59" parent="14" name="submit_time">
       <Position>4</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="61" parent="14" name="venderCode">
+    <column id="60" parent="14" name="venderCode">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="62" parent="14" name="submit_user">
+    <column id="61" parent="14" name="submit_user">
       <Position>6</Position>
       <DataType>varchar(5)|0</DataType>
     </column>
-    <column id="63" parent="14" name="note_text">
+    <column id="62" parent="14" name="note_text">
       <Position>7</Position>
       <DataType>varchar(120)|0</DataType>
     </column>
-    <column id="64" parent="14" name="sign_url">
+    <column id="63" parent="14" name="sign_url">
       <Position>8</Position>
       <DataType>varchar(199)|0</DataType>
     </column>
-    <column id="65" parent="14" name="receive_time">
+    <column id="64" parent="14" name="receive_time">
       <Position>9</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="66" parent="14" name="dispatch_time">
+    <column id="65" parent="14" name="dispatch_time">
       <Position>10</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <key id="67" parent="14" name="PRIMARY">
+    <key id="66" parent="14" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="68" parent="15" name="ID">
+    <column id="67" parent="15" name="ID">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="69" parent="15" name="NAME">
+    <column id="68" parent="15" name="NAME">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
     </column>
-    <column id="70" parent="15" name="CODE">
+    <column id="69" parent="15" name="CODE">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
       <NotNull>1</NotNull>
       <DefaultExpression>&apos;&apos;</DefaultExpression>
     </column>
-    <column id="71" parent="15" name="DESCRIPTION">
+    <column id="70" parent="15" name="DESCRIPTION">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="72" parent="15" name="PARENT_SHOP_ID">
+    <column id="71" parent="15" name="PARENT_SHOP_ID">
       <Position>5</Position>
       <DataType>bigint(20)|0</DataType>
     </column>
-    <index id="73" parent="15" name="FK77552FE1484886F">
+    <index id="72" parent="15" name="FK77552FE1484886F">
       <ColNames>PARENT_SHOP_ID</ColNames>
     </index>
-    <key id="74" parent="15" name="PRIMARY">
+    <key id="73" parent="15" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <foreign-key id="75" parent="15" name="shop_ibfk_1">
+    <foreign-key id="74" parent="15" name="shop_ibfk_1">
       <ColNames>PARENT_SHOP_ID</ColNames>
       <RefSchemaName>orderhelper</RefSchemaName>
       <RefTableName>shop</RefTableName>
       <RefColNames>ID</RefColNames>
     </foreign-key>
-    <column id="76" parent="16" name="ID">
+    <column id="75" parent="16" name="ID">
       <Position>1</Position>
       <DataType>bigint(20)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="77" parent="16" name="NAME">
+    <column id="76" parent="16" name="NAME">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="78" parent="16" name="LANMU_ID">
+    <column id="77" parent="16" name="LANMU_ID">
       <Position>3</Position>
       <DataType>bigint(20)|0</DataType>
     </column>
-    <column id="79" parent="16" name="URL">
+    <column id="78" parent="16" name="URL">
       <Position>4</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="80" parent="16" name="OTHER">
+    <column id="79" parent="16" name="OTHER">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="81" parent="16" name="PRIMARY">
+    <key id="80" parent="16" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="82" parent="17" name="id">
+    <column id="81" parent="17" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="83" parent="17" name="account">
+    <column id="82" parent="17" name="account">
       <Position>2</Position>
       <DataType>varchar(30)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="84" parent="17" name="password">
+    <column id="83" parent="17" name="password">
       <Position>3</Position>
       <DataType>varchar(32)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="85" parent="17" name="token">
+    <column id="84" parent="17" name="token">
       <Position>4</Position>
       <Comment>登陆凭据</Comment>
       <DataType>varchar(199)|0</DataType>
     </column>
-    <column id="86" parent="17" name="role">
+    <column id="85" parent="17" name="role">
       <Position>5</Position>
       <Comment>角色：采购中心、食堂、档口</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="87" parent="17" name="duty">
+    <column id="86" parent="17" name="duty">
       <Position>6</Position>
       <Comment>职责：经理、助理、财务</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="88" parent="17" name="name">
+    <column id="87" parent="17" name="name">
       <Position>7</Position>
       <Comment>eg:食堂1、档口1，字段唯一</Comment>
       <DataType>varchar(15)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="89" parent="17" name="higher">
+    <column id="88" parent="17" name="higher">
       <Position>8</Position>
       <Comment>上级，eg:name=档口1，higher=食堂1</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="90" parent="17" name="address">
+    <column id="89" parent="17" name="address">
       <Position>9</Position>
       <DataType>varchar(199)|0</DataType>
     </column>
-    <column id="91" parent="17" name="tel">
+    <column id="90" parent="17" name="tel">
       <Position>10</Position>
       <DataType>varchar(15)|0</DataType>
     </column>
-    <column id="92" parent="17" name="postcode">
+    <column id="91" parent="17" name="postcode">
       <Position>11</Position>
       <Comment>邮编</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="93" parent="17" name="email">
+    <column id="92" parent="17" name="email">
       <Position>12</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="94" parent="17" name="create_time">
+    <column id="93" parent="17" name="create_time">
       <Position>13</Position>
       <Comment>帐号创建时间</Comment>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="95" parent="17" name="pic_url">
+    <column id="94" parent="17" name="pic_url">
       <Position>14</Position>
       <Comment>照片</Comment>
       <DataType>varchar(199)|0</DataType>
     </column>
-    <index id="96" parent="17" name="user_id_uindex">
+    <index id="95" parent="17" name="user_id_uindex">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="97" parent="17" name="user_name_uindex">
+    <index id="96" parent="17" name="user_name_uindex">
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="98" parent="17" name="user_account_uindex">
+    <index id="97" parent="17" name="user_account_uindex">
       <ColNames>account</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="99" parent="17" name="PRIMARY">
+    <key id="98" parent="17" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="100" parent="17" name="user_id_uindex">
+    <key id="99" parent="17" name="user_id_uindex">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>user_id_uindex</UnderlyingIndexName>
     </key>
-    <key id="101" parent="17" name="user_account_uindex">
+    <key id="100" parent="17" name="user_account_uindex">
       <ColNames>account</ColNames>
       <UnderlyingIndexName>user_account_uindex</UnderlyingIndexName>
     </key>
-    <key id="102" parent="17" name="user_name_uindex">
+    <key id="101" parent="17" name="user_name_uindex">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>user_name_uindex</UnderlyingIndexName>
     </key>
-    <column id="103" parent="18" name="id">
+    <column id="102" parent="18" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="104" parent="18" name="name">
+    <column id="103" parent="18" name="name">
       <Position>2</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="105" parent="18" name="category_second">
+    <column id="104" parent="18" name="category_second">
       <Position>3</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="106" parent="18" name="price">
+    <column id="105" parent="18" name="price">
       <Position>4</Position>
       <DataType>double|0</DataType>
     </column>
-    <column id="107" parent="18" name="venderName">
+    <column id="106" parent="18" name="venderName">
       <Position>5</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="108" parent="18" name="specification">
+    <column id="107" parent="18" name="specification">
       <Position>6</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="109" parent="18" name="vender_code">
+    <column id="108" parent="18" name="vender_code">
       <Position>7</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="110" parent="18" name="category_first">
+    <column id="109" parent="18" name="category_first">
       <Position>8</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <column id="111" parent="18" name="pic_url">
+    <column id="110" parent="18" name="pic_url">
       <Position>9</Position>
       <DataType>varchar(255)|0</DataType>
     </column>
-    <key id="112" parent="18" name="PRIMARY">
+    <key id="111" parent="18" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="113" parent="19" name="id">
+    <column id="112" parent="19" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="114" parent="19" name="code">
+    <column id="113" parent="19" name="code">
       <Position>2</Position>
       <DataType>varchar(199)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="115" parent="19" name="name">
+    <column id="114" parent="19" name="name">
       <Position>3</Position>
       <DataType>varchar(199)|0</DataType>
     </column>
-    <column id="116" parent="19" name="create_time">
+    <column id="115" parent="19" name="create_time">
       <Position>4</Position>
       <DataType>varchar(25)|0</DataType>
     </column>
-    <index id="117" parent="19" name="vender_code_uindex">
+    <index id="116" parent="19" name="vender_code_uindex">
       <ColNames>code</ColNames>
       <Unique>1</Unique>
     </index>
-    <index id="118" parent="19" name="vender_name_uindex">
+    <index id="117" parent="19" name="vender_name_uindex">
       <ColNames>name</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="119" parent="19" name="PRIMARY">
+    <key id="118" parent="19" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="120" parent="19" name="vender_code_uindex">
+    <key id="119" parent="19" name="vender_code_uindex">
       <ColNames>code</ColNames>
       <UnderlyingIndexName>vender_code_uindex</UnderlyingIndexName>
     </key>
-    <key id="121" parent="19" name="vender_name_uindex">
+    <key id="120" parent="19" name="vender_name_uindex">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>vender_name_uindex</UnderlyingIndexName>
     </key>
-    <column id="122" parent="20" name="id">
+    <column id="121" parent="20" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="123" parent="20" name="type">
+    <column id="122" parent="20" name="type">
       <Position>2</Position>
       <Comment>入仓、出仓、冲销、退货</Comment>
       <DataType>varchar(2)|0</DataType>
     </column>
-    <column id="124" parent="20" name="order_code">
+    <column id="123" parent="20" name="order_code">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="125" parent="20" name="plan_code">
+    <column id="124" parent="20" name="plan_code">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="126" parent="20" name="eatery_code">
+    <column id="125" parent="20" name="eatery_code">
       <Position>5</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="127" parent="20" name="warehouse_code">
+    <column id="126" parent="20" name="warehouse_code">
       <Position>6</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="128" parent="20" name="variety_code">
+    <column id="127" parent="20" name="variety_code">
       <Position>7</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="129" parent="20" name="process_amount">
+    <column id="128" parent="20" name="process_amount">
       <Position>8</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="130" parent="20" name="process_price">
+    <column id="129" parent="20" name="process_price">
       <Position>9</Position>
       <DataType>double|0</DataType>
     </column>
-    <column id="131" parent="20" name="state">
+    <column id="130" parent="20" name="state">
       <Position>10</Position>
       <DataType>varchar(2)|0</DataType>
     </column>
-    <column id="132" parent="20" name="warehouse_time">
+    <column id="131" parent="20" name="warehouse_time">
       <Position>11</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="133" parent="20" name="warrant_code">
+    <column id="132" parent="20" name="warrant_code">
       <Position>12</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="134" parent="20" name="submit_time">
+    <column id="133" parent="20" name="submit_time">
       <Position>13</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="135" parent="20" name="submit_user_code">
+    <column id="134" parent="20" name="submit_user_code">
       <Position>14</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="136" parent="21" name="id">
+    <column id="135" parent="21" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="137" parent="21" name="warrant_code">
+    <column id="136" parent="21" name="warrant_code">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="138" parent="21" name="submit_user_code">
+    <column id="137" parent="21" name="submit_user_code">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="139" parent="21" name="audit_user_code">
+    <column id="138" parent="21" name="audit_user_code">
       <Position>4</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="140" parent="21" name="submit_time">
+    <column id="139" parent="21" name="submit_time">
       <Position>5</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="141" parent="21" name="audit_time">
+    <column id="140" parent="21" name="audit_time">
       <Position>6</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="142" parent="21" name="warrant_picture">
+    <column id="141" parent="21" name="warrant_picture">
       <Position>7</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <key id="143" parent="21" name="PRIMARY">
+    <key id="142" parent="21" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="144" parent="22" name="id">
+    <column id="143" parent="22" name="id">
       <Position>1</Position>
       <DataType>int(11)|0</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
     </column>
-    <column id="145" parent="22" name="need_id">
+    <column id="144" parent="22" name="need_id">
       <Position>2</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="146" parent="22" name="amount">
+    <column id="145" parent="22" name="amount">
       <Position>3</Position>
       <DataType>int(11)|0</DataType>
     </column>
-    <column id="147" parent="22" name="submit_time">
+    <column id="146" parent="22" name="submit_time">
       <Position>4</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="148" parent="22" name="reason">
+    <column id="147" parent="22" name="reason">
       <Position>5</Position>
       <DataType>varchar(50)|0</DataType>
     </column>
-    <column id="149" parent="22" name="submit_user">
+    <column id="148" parent="22" name="submit_user">
       <Position>6</Position>
       <DataType>varchar(20)|0</DataType>
     </column>
-    <column id="150" parent="22" name="type">
+    <column id="149" parent="22" name="type">
       <Position>7</Position>
       <DataType>varchar(10)|0</DataType>
     </column>
-    <column id="151" parent="22" name="sign_pic">
+    <column id="150" parent="22" name="sign_pic">
       <Position>8</Position>
       <DataType>varchar(199)|0</DataType>
     </column>
-    <key id="152" parent="22" name="PRIMARY">
+    <key id="151" parent="22" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

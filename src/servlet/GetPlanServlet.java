@@ -22,19 +22,21 @@ public class GetPlanServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setHeader("content-type","text/html;charset=UTF-8");
-		System.out.println("获取所有计划," + request.getRemoteAddr());
+		System.out.println("获取计划," + request.getRemoteAddr());
 
-		int eateryCode = Integer.parseInt(request.getParameter("eateryCode"));
-		JSONArray object = JSONArray.fromObject(PlanDataHelper.getPlanList(eateryCode));
+		String eateryName = request.getParameter("eateryName");
+		if (eateryName == null && eateryName.equals("")) {
+			System.out.println("食堂名称eateryName为空");
+			return;
+		}
+		JSONArray object = JSONArray.fromObject(PlanDataHelper.getPlanList(eateryName));
+		System.out.println(object.toString());
 		response.getWriter().write(object.toString());
 	}
 
 	protected void doGet(HttpServletRequest request,
 	                     HttpServletResponse response) throws ServletException, IOException {
 
-		int eateryCode = Integer.parseInt(request.getParameter("eateryCode"));
-		JSONArray object = JSONArray.fromObject(PlanDataHelper.getPlanList(eateryCode));
-		System.out.println(object.toString());
-		response.getWriter().write(object.toString());
+
 	}
 }

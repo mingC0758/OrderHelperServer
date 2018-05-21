@@ -28,22 +28,13 @@ public class GetUnauditedPlanServlet extends HttpServlet {
 		response.setHeader("content-type","text/html;charset=UTF-8");
 		System.out.println("获取计划列表" + request.getRemoteAddr());
 
-		int eateryCode = Integer.parseInt(request.getParameter("eateryCode"));
-		JSONArray object = JSONArray.fromObject(PlanDataHelper.getUnauditedPlanList(eateryCode));
+		//这里的获取未审核的计划只有采购中心和超级管理员可以做，所以实际上是获取"所有"未审核计划
+		JSONArray object = JSONArray.fromObject(PlanDataHelper.getUnauditedPlanList());
 		response.getWriter().write(object.toString());
 	}
 
 	protected void doGet(HttpServletRequest request,
 	                     HttpServletResponse response) throws ServletException, IOException {
-		//设置utf8编码
-		request.setCharacterEncoding("utf-8");
-		response.setCharacterEncoding("utf-8");
-		response.setHeader("content-type","text/html;charset=UTF-8");
-		System.out.println("获取计划列表" + request.getRemoteAddr());
 
-		int eateryCode = 1;
-		JSONArray object = JSONArray.fromObject(PlanDataHelper.getUnauditedPlanList(eateryCode));
-		System.out.println(object.toString());
-		response.getWriter().write(object.toString());
 	}
 }

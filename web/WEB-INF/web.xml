@@ -21,10 +21,6 @@
 		<servlet-class>servlet.NeedAuditServlet</servlet-class>
 	</servlet>
 	<servlet>
-		<servlet-name>AddPlanServlet</servlet-name>
-		<servlet-class>servlet.AddPlanServlet</servlet-class>
-	</servlet>
-	<servlet>
 		<servlet-name>AuditPlanServlet</servlet-name>
 		<servlet-class>servlet.AuditPlanServlet</servlet-class>
 	</servlet>
@@ -59,10 +55,6 @@
 	<servlet>
 		<servlet-name>AddOrderSignServlet</servlet-name>
 		<servlet-class>servlet.AddOrderSignServlet</servlet-class>
-	</servlet>
-	<servlet>
-		<servlet-name>WriteOffSignUploadServlet</servlet-name>
-		<servlet-class>servlet.WriteOffSignUploadServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>OrderJiesuanServlet</servlet-name>
@@ -110,10 +102,6 @@
 		<url-pattern>/Need/audit</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>AddPlanServlet</servlet-name>
-		<url-pattern>/Plan/add</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
 		<servlet-name>AuditPlanServlet</servlet-name>
 		<url-pattern>/Plan/audit</url-pattern>
 	</servlet-mapping>
@@ -152,10 +140,6 @@
 	<servlet-mapping>
 		<servlet-name>AddOrderSignServlet</servlet-name>
 		<url-pattern>/Order/add/signPic</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>WriteOffSignUploadServlet</servlet-name>
-		<url-pattern>/Need/uploadWriteOffSign</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>LoginServlet</servlet-name>

@@ -28,14 +28,11 @@ public class NeedAuditServlet extends HttpServlet {
 		response.setHeader("content-type","text/html;charset=UTF-8");
 
 		Gson gson = new Gson();
-		//2018-04-25(改接口)
-		//		Type listType = new TypeToken<ArrayList<Requirement>>(){}.getType();
-		//		ArrayList<Requirement> list = gson.fromJson(request.getReader(), listType);
-		//		System.out.println("需求审核:" + request.getRemoteAddr() + ",参数：" + list);
-
 		PurchasePlan plan = gson.fromJson(request.getReader(), PurchasePlan.class);
+		//设需求为已审核
 		boolean res = NeedDataHelper.setNeedAudited(plan.getRequirementList());
-		boolean res2 = PlanDataHelper.addPlan(plan.getEateryCode(), plan.getReceiverName(), plan.getReceiveAddress(), plan.getReceiverPhone());
+		//添加需求到计划中
+		boolean res2 = PlanDataHelper.addPlan(plan.getEateryName(), plan.getReceiverName(), plan.getReceiveAddress(), plan.getReceiverPhone());
 		ResultBean bean;
 		if (res && res2) {
 			bean = new ResultBean(1, "ok");

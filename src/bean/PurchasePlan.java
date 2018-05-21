@@ -10,8 +10,8 @@ public class PurchasePlan {
 	//采购计划代码
 	int planCode = 0;
 
-	//食堂编号
-	int eateryCode = 0;
+	//食堂名称
+	String eateryName;
 
 	//状态
 	String status = "草";
@@ -30,24 +30,12 @@ public class PurchasePlan {
 	public PurchasePlan() {
 	}
 
-	public PurchasePlan(int eateryCode, String status, List<Requirement> requirementList,
-	                    String submitTime, String receiverName, String receiveAddress,
-	                    String receiverPhone) {
-		this.eateryCode = eateryCode;
-		this.status = status;
-		this.requirementList = requirementList;
-		this.submitTime = submitTime;
-		this.receiverName = receiverName;
-		this.receiveAddress = receiveAddress;
-		this.receiverPhone = receiverPhone;
+	public String getEateryName() {
+		return eateryName;
 	}
 
-	public int getEateryCode() {
-		return eateryCode;
-	}
-
-	public void setEateryCode(int eateryCode) {
-		this.eateryCode = eateryCode;
+	public void setEateryName(String eateryName) {
+		this.eateryName = eateryName;
 	}
 
 	public String getSubmitTime() {
@@ -106,8 +94,4 @@ public class PurchasePlan {
 		this.receiverPhone = receiverPhone;
 	}
 
-	@Override
-	public String toString() {
-		return "PurchasePlan{" + "planCode=" + planCode + ", eateryCode=" + eateryCode + ", status='" + status + '\'' + ", requirementList=" + requirementList + ", submitTime='" + submitTime + '\'' + ", receiverName='" + receiverName + '\'' + ", receiveAddress='" + receiveAddress + '\'' + ", receiverPhone='" + receiverPhone + '\'' + '}';
-	}
 }
