@@ -14,6 +14,9 @@ public class BaseDataHelper {
 	private static final String USERNAME = "root";
 	private static final String PWD = "momingqi";
 
+	public static final String RET_OK = "ok";
+	public static final String RET_ERROR = "error";
+
 	/**
 	 * 获取数据库连接
 	 * Note:使用完必须调用closeConnection来关闭，否则可能因为超出连接数而无法再获得连接

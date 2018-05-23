@@ -1,6 +1,7 @@
 package data;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
@@ -89,5 +90,63 @@ public class VarietyDataHelper extends BaseDataHelper{
 			closeConnection(connection);
 		}
 		return null;
+	}
+
+	/**
+	 * 插入新的品种
+	 * @param variety
+	 * @return 如果成功，返回RET_OK
+	 */
+	public static String insertVariety(Variety variety) {
+		Connection connection = getConnection();
+		try {
+			//设置分类
+			if (variety.getCategoryFirst() == null) {
+				PreparedStatement stat = connection.prepareStatement("SELECT DISTINCT(category_first) from variety WHERE category_second=?");
+				stat.setString(1, variety.getCategorySecond());
+				ResultSet res = stat.executeQuery();
+				if (res.next()) {
+					variety.setCategoryFirst(res.getString(1));
+				}
+				System.out.println("一类分级：" + variety.getCategoryFirst());
+			}
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO variety(name, category_second, price, venderName, specification, vender_code, category_first, pic_url) VALUES (?,?,?,?,?,?,?,?)");
+			statement.setString(1, variety.getName());
+			statement.setString(2, variety.getCategorySecond());
+			statement.setDouble(3, variety.getPrice());
+			statement.setString(4, variety.getVenderName());
+			statement.setString(5, variety.getSpecification());
+			statement.setInt(6, -1);    //供应商代码
+			statement.setString(7, variety.getCategoryFirst());
+			statement.setString(8, "null url");
+			if (1 == statement.executeUpdate()) {
+				return RET_OK;
+			}
+			return RET_ERROR;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
+
+	/**
+	 * 更新品种的**供应商信息**
+	 * @param variety
+	 * @return
+	 */
+	public static String updateVariety(Variety variety) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("UPDATE variety SET venderName=? WHERE id=?");
+			statement.setString(1, variety.getVenderName());
+			statement.setInt(2, variety.getVarietyCode());
+			if (1 == statement.executeUpdate()) {
+				return RET_OK;
+			}
+			return RET_ERROR;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
 	}
 }
