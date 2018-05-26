@@ -90,7 +90,7 @@ public class PlanDataHelper extends BaseDataHelper{
 				reqStatement.setInt(1, purchasePlan.getPlanCode());
 				ResultSet reqResultSet = reqStatement.executeQuery();
 				while (reqResultSet.next()) {
-					Requirement requirement = NeedDataHelper.getRequirement(reqResultSet);
+					Requirement requirement = NeedDataHelper.rsToRequirement(reqResultSet);
 					requirementList.add(requirement);
 				}
 				purchasePlan.setRequirementList(requirementList);
@@ -124,7 +124,7 @@ public class PlanDataHelper extends BaseDataHelper{
 			//2.根据需求品种的供应商分类
 			Map<Integer, List<Requirement>> venderMap = new HashMap<>();
 			while (resultSet.next()) {
-				Requirement requirement = NeedDataHelper.getRequirement(resultSet);
+				Requirement requirement = NeedDataHelper.rsToRequirement(resultSet);
 				int venderCode = resultSet.getInt("vender_code");
 				if (! venderMap.containsKey(venderCode)) {
 					venderMap.put(venderCode, new LinkedList<>());

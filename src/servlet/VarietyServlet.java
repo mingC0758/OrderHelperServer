@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.ProductBean;
+import bean.Variety;
 import data.VarietyDataHelper;
 
 /**
@@ -28,20 +29,32 @@ public class VarietyServlet extends HttpServlet {
 		System.out.println("访问Variety：" + request.getRemoteAddr());
 		//数据查询
 		//设置utf8编码
+		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setHeader("content-type","text/html;charset=UTF-8");
-		List<ProductBean> list = VarietyDataHelper.getProductBeanList();
-		if (list != null) {
-//			Map<String, Object> map = new HashMap<>();
-//			map.put("code", 200);
-//			map.put("msg", "ok");
-//			map.put("VarietyList", list);
-			JSONArray object = JSONArray.fromObject(list);
-			response.getWriter().write(object.toString());
-		} else {
-			response.sendError(500, "MySQL出错");
-		}
 
+		String type = request.getParameter("type");
+		if (type == null || type.equals("")) {
+			System.out.println("type为空");
+			return;
+		}
+		if (type.equals("productBeans")) {
+			List<ProductBean> list = VarietyDataHelper.getProductBeanList();
+			if (list != null) {
+				JSONArray object = JSONArray.fromObject(list);
+				response.getWriter().write(object.toString());
+			} else {
+				response.sendError(500, "MySQL出错");
+			}
+		} else if (type.equals("varieties")) {
+			List<Variety> list = VarietyDataHelper.getVarietyList();
+			if (list != null) {
+				JSONArray object = JSONArray.fromObject(list);
+				response.getWriter().write(object.toString());
+			} else {
+				response.sendError(500, "MySQL出错");
+			}
+		}
 	}
 
 }

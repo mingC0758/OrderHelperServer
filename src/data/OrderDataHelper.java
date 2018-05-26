@@ -166,7 +166,7 @@ public class OrderDataHelper extends BaseDataHelper{
 			ResultSet needRs = needStat.executeQuery();
 			List<Requirement> requirementList = new LinkedList<>();
 			while (needRs.next()) {
-				Requirement requirement = NeedDataHelper.getRequirement(needRs);
+				Requirement requirement = NeedDataHelper.rsToRequirement(needRs);
 				requirementList.add(requirement);
 			}
 			order.setPurchaseList(requirementList);

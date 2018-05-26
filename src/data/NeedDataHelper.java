@@ -14,6 +14,7 @@ import bean.WriteOff;
 import util.Util;
 
 /**
+ * 05-27：需求（Need）跟品种（Variety）依赖分离
  * @author mingC
  * @date 2018/3/25
  */
@@ -46,7 +47,7 @@ public class NeedDataHelper extends BaseDataHelper {
 				//不存在相同，插入新需求
 				System.out.println("需求不存在，新插入：" + requirement.getVarietyName());
 				PreparedStatement statement = connection.prepareStatement(
-						"INSERT INTO need(eateryName, varietyName, specification, varietyCode, amount, price, state, submit_time, actual_amount, store_name) VALUES (?,?,?,?,?,?,?,?,?,?)");
+						"INSERT INTO need(eateryName, varietyName, specification, varietyCode, amount, price, state, submit_time, actual_amount, store_name, pic_url) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
 				statement.setString(1, requirement.getEateryName());
 				statement.setString(2, requirement.getVarietyName());
 				statement.setString(3, requirement.getSpecification());
@@ -57,6 +58,7 @@ public class NeedDataHelper extends BaseDataHelper {
 				statement.setString(8, Util.getDateTimePretty());
 				statement.setInt(9, requirement.getAmount());
 				statement.setString(10, requirement.getStoreName());
+				statement.setString(11, requirement.getImg());
 				statement.executeUpdate();
 			}
 		} catch (Exception e) {
@@ -79,11 +81,11 @@ public class NeedDataHelper extends BaseDataHelper {
 		Connection connection = getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT * FROM need,variety WHERE need.varietyCode=variety.id AND eateryName = ?");
+					"SELECT * FROM need WHERE eateryName = ?");
 			statement.setString(1, eateryName);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				Requirement requirement = getRequirement(resultSet);
+				Requirement requirement = rsToRequirement(resultSet);
 				list.add(requirement);
 			}
 		} catch (SQLException e) {
@@ -106,12 +108,12 @@ public class NeedDataHelper extends BaseDataHelper {
 		Connection connection = getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT * FROM need,variety WHERE need.varietyCode=variety.id and state = ? AND eateryName = ?");
+					"SELECT * FROM need WHERE state = ? AND eateryName = ?");
 			statement.setString(1, state);
 			statement.setString(2, eateryName);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
-				Requirement requirement = getRequirement(resultSet);
+				Requirement requirement = rsToRequirement(resultSet);
 				list.add(requirement);
 			}
 		} catch (SQLException e) {
@@ -123,7 +125,7 @@ public class NeedDataHelper extends BaseDataHelper {
 		return list;
 	}
 
-	public static Requirement getRequirement(ResultSet resultSet) throws SQLException {
+	public static Requirement rsToRequirement(ResultSet resultSet) throws SQLException {
 		Requirement requirement = new Requirement();
 		requirement.setNeedId(resultSet.getInt("id"));
 		requirement.setAmount(resultSet.getInt("amount"));

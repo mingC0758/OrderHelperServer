@@ -45,6 +45,16 @@ public class VarietyUpdateServlet extends HttpServlet {
 				resultBean = new ResultBean(-1, result);
 			}
 			response.getWriter().write(JSONObject.fromObject(resultBean).toString());
+		} else if(type.equals("del")) {
+			//删除产品
+			String result = VarietyDataHelper.delVariety(variety);
+			ResultBean resultBean;
+			if (result.equals(VarietyDataHelper.RET_OK)) {
+				resultBean = new ResultBean(1, "ok");
+			} else {
+				resultBean = new ResultBean(-1, result);
+			}
+			response.getWriter().write(JSONObject.fromObject(resultBean).toString());
 		} else {
 			response.sendError(500, "params error");
 		}

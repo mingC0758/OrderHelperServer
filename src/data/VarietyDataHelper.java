@@ -149,4 +149,19 @@ public class VarietyDataHelper extends BaseDataHelper{
 			return e.getMessage();
 		}
 	}
+
+	public static String delVariety(Variety variety) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM variety WHERE id=?");
+			statement.setInt(1, variety.getVarietyCode());
+			if (1 == statement.executeUpdate()) {
+				return RET_OK;
+			}
+			return "update row != 1";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		}
+	}
 }
