@@ -25,16 +25,22 @@ public class NeedGetServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setHeader("content-type","text/html;charset=UTF-8");
 
-		String eateryName = request.getParameter("eateryName");
-		int type = Integer.parseInt(request.getParameter("type"));
-		System.out.println("需求获取：" + request.getRemoteAddr() + "，参数eateryName:" + eateryName + ",type=" + type);
+		String name = request.getParameter("name");
+		String role = request.getParameter("role");
+		String type = request.getParameter("type");
+		if (type == null) {
+			return;
+		}
 
 		//0代表未审核的需求，1代表所有需求
 		List<Requirement> list;
-		if (type == 0) {
-			list = NeedDataHelper.getNeedList(eateryName, "审核中");
+		if (type.equals("unaudited")) {
+			list = NeedDataHelper.getUnauditedNeedList(name);
+		} else if (type.equals("all")){
+			list = NeedDataHelper.getNeedList(name, role);
 		} else {
-			list = NeedDataHelper.getNeedList(eateryName);
+			System.out.println("type参数错误");
+			return;
 		}
 		response.getWriter().write(JSONArray.fromObject(list).toString());
 	}

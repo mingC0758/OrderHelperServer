@@ -71,18 +71,24 @@ public class NeedDataHelper extends BaseDataHelper {
 	}
 
 	/**
-	 * 获取食堂所有需求
-	 *
-	 * @param eateryCode
+	 * 获取用户所有提交的需求
 	 * @return
 	 */
-	public static List<Requirement> getNeedList(String eateryName) {
+	public static List<Requirement> getNeedList(String name, String role) {
 		List<Requirement> list = new ArrayList<>();
 		Connection connection = getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement(
-					"SELECT * FROM need WHERE eateryName = ?");
-			statement.setString(1, eateryName);
+			String sql;
+			if (role.equals("食堂")) {
+				//language=MySQL
+				sql = "SELECT * FROM need WHERE eateryName = ?";
+			} else if (role.equals("档口")){
+				sql = "SELECT * FROM need WHERE store_name = ?";
+			} else {
+				sql = "SELECT * FROM need WHERE eateryName = ?";
+			}
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setString(1, name);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				Requirement requirement = rsToRequirement(resultSet);
@@ -99,18 +105,15 @@ public class NeedDataHelper extends BaseDataHelper {
 
 	/**
 	 * 获取某状态下的需求
-	 *
-	 * @param state
 	 * @return
 	 */
-	public static List<Requirement> getNeedList(String eateryName, String state) {
+	public static List<Requirement> getUnauditedNeedList(String name) {
 		List<Requirement> list = new ArrayList<>();
 		Connection connection = getConnection();
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"SELECT * FROM need WHERE state = ? AND eateryName = ?");
-			statement.setString(1, state);
-			statement.setString(2, eateryName);
+					"SELECT * FROM need WHERE state = '审核中' AND eateryName = ?");
+			statement.setString(1, name);
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				Requirement requirement = rsToRequirement(resultSet);
@@ -198,6 +201,28 @@ public class NeedDataHelper extends BaseDataHelper {
 	}
 
 	/**
+	 * 将需求状态设为：不通过
+	 * @param requirement
+	 * @return
+	 */
+	public static String setNeedNotPassed(Requirement requirement) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("UPDATE need SET state='不通过' WHERE id=?");
+			statement.setInt(1, requirement.getNeedId());
+			if (1 == statement.executeUpdate()) {
+				return RET_OK;
+			}
+			return RET_COUNT_ERROR;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return e.getMessage();
+		} finally {
+			closeConnection(connection);
+		}
+	}
+
+	/**
 	 * 查找特定订单下特定产品的冲销记录列表
 	 *
 	 * @param needId
@@ -234,8 +259,6 @@ public class NeedDataHelper extends BaseDataHelper {
 	/**
 	 * 插入特定订单下特定产品的冲销记录
 	 *
-	 * @param orderId
-	 * @param needId
 	 * @param writeOff
 	 * @return
 	 */

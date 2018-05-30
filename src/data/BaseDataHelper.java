@@ -16,6 +16,7 @@ public class BaseDataHelper {
 
 	public static final String RET_OK = "ok";
 	public static final String RET_ERROR = "error";
+	public static final String RET_COUNT_ERROR = "update count error";
 
 	/**
 	 * 获取数据库连接

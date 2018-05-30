@@ -84,6 +84,10 @@
 		<servlet-name>VenderAddServlet</servlet-name>
 		<servlet-class>servlet.VenderAddServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>VarietyUpdateServlet</servlet-name>
+		<servlet-class>servlet.VarietyUpdateServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>NeedServlet</servlet-name>
@@ -164,5 +168,9 @@
 	<servlet-mapping>
 		<servlet-name>VenderAddServlet</servlet-name>
 		<url-pattern>/Vender/add</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>VarietyUpdateServlet</servlet-name>
+		<url-pattern>/Variety/update</url-pattern>
 	</servlet-mapping>
 </web-app>

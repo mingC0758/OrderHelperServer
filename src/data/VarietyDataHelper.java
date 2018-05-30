@@ -126,6 +126,8 @@ public class VarietyDataHelper extends BaseDataHelper{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return e.getMessage();
+		} finally {
+			closeConnection(connection);
 		}
 	}
 
@@ -147,6 +149,8 @@ public class VarietyDataHelper extends BaseDataHelper{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return e.getMessage();
+		} finally {
+			closeConnection(connection);
 		}
 	}
 
@@ -162,6 +166,8 @@ public class VarietyDataHelper extends BaseDataHelper{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return e.getMessage();
+		} finally {
+			closeConnection(connection);
 		}
 	}
 }
