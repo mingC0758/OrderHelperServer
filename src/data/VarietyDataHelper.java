@@ -101,15 +101,6 @@ public class VarietyDataHelper extends BaseDataHelper{
 		Connection connection = getConnection();
 		try {
 			//设置分类
-			if (variety.getCategoryFirst() == null) {
-				PreparedStatement stat = connection.prepareStatement("SELECT DISTINCT(category_first) from variety WHERE category_second=?");
-				stat.setString(1, variety.getCategorySecond());
-				ResultSet res = stat.executeQuery();
-				if (res.next()) {
-					variety.setCategoryFirst(res.getString(1));
-				}
-				System.out.println("一类分级：" + variety.getCategoryFirst());
-			}
 			PreparedStatement statement = connection.prepareStatement("INSERT INTO variety(name, category_second, price, venderName, specification, vender_code, category_first, pic_url) VALUES (?,?,?,?,?,?,?,?)");
 			statement.setString(1, variety.getName());
 			statement.setString(2, variety.getCategorySecond());

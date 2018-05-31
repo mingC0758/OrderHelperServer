@@ -88,6 +88,14 @@
 		<servlet-name>VarietyUpdateServlet</servlet-name>
 		<servlet-class>servlet.VarietyUpdateServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>CategoryGetServlet</servlet-name>
+		<servlet-class>servlet.CategoryGetServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>CategoryUpdateServlet</servlet-name>
+		<servlet-class>servlet.CategoryUpdateServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>NeedServlet</servlet-name>
@@ -172,5 +180,13 @@
 	<servlet-mapping>
 		<servlet-name>VarietyUpdateServlet</servlet-name>
 		<url-pattern>/Variety/update</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CategoryGetServlet</servlet-name>
+		<url-pattern>/Category/get</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CategoryUpdateServlet</servlet-name>
+		<url-pattern>/Category/update</url-pattern>
 	</servlet-mapping>
 </web-app>

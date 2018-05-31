@@ -62,6 +62,8 @@ public class UserDataHelper extends BaseDataHelper{
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return e.getMessage();
+		} finally {
+			closeConnection(connection);
 		}
 		return "更新无效 count != 1";
 	}
