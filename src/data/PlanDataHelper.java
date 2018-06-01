@@ -165,6 +165,27 @@ public class PlanDataHelper extends BaseDataHelper{
 		return false;
 	}
 
+	/**
+	 * 将计划设为不通过
+	 * @param planCode
+	 * @return
+	 */
+	public static boolean setPlanNoPass(int planCode) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(
+					"UPDATE plan SET state='不通过' WHERE id=?");
+			statement.setInt(1, planCode);
+			if (1 == statement.executeUpdate()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
+		}
+		return false;
+	}
 	public static List<PurchasePlan> getPlanList(String eateryName) {
 		List<PurchasePlan> planList = new LinkedList<>();
 		Connection connection = getConnection();
