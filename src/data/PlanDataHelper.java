@@ -186,12 +186,23 @@ public class PlanDataHelper extends BaseDataHelper{
 		}
 		return false;
 	}
-	public static List<PurchasePlan> getPlanList(String eateryName) {
+
+	/**
+	 *
+	 * @param eateryName
+	 * @return
+	 */
+	public static List<PurchasePlan> getPlanList(String eateryName, String role) {
 		List<PurchasePlan> planList = new LinkedList<>();
 		Connection connection = getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement("SELECT * FROM plan WHERE eateryName=?");
-			statement.setString(1, eateryName);
+			PreparedStatement statement;
+			if (role.equals("食堂")) {
+				statement = connection.prepareStatement("SELECT * FROM plan WHERE eateryName=?");
+				statement.setString(1, eateryName);
+			} else {
+				statement = connection.prepareStatement("SELECT * FROM plan");
+			}
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				PurchasePlan purchasePlan = new PurchasePlan();
