@@ -96,6 +96,18 @@
 		<servlet-name>CategoryUpdateServlet</servlet-name>
 		<servlet-class>servlet.CategoryUpdateServlet</servlet-class>
 	</servlet>
+	<servlet>
+		<servlet-name>PriceGetServlet</servlet-name>
+		<servlet-class>servlet.PriceGetServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>PriceUpdateServlet</servlet-name>
+		<servlet-class>servlet.PriceUpdateServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>OrderShareServlet</servlet-name>
+		<servlet-class>servlet.OrderShareServlet</servlet-class>
+	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>NeedServlet</servlet-name>
@@ -188,5 +200,17 @@
 	<servlet-mapping>
 		<servlet-name>CategoryUpdateServlet</servlet-name>
 		<url-pattern>/Category/update</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PriceGetServlet</servlet-name>
+		<url-pattern>/Price/get</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>PriceUpdateServlet</servlet-name>
+		<url-pattern>/Price/update</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>OrderShareServlet</servlet-name>
+		<url-pattern>/Order/share</url-pattern>
 	</servlet-mapping>
 </web-app>

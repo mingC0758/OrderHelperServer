@@ -18,11 +18,11 @@ public class VenderDataHelper extends BaseDataHelper{
 	public static final String RET_OK = "[ok]";
 	public static final String RET_Duplicate = "[Duplicate entry]"; //编码重复
 
-	public static String delVender(String venderCode) {
+	public static String delVender(int venderId) {
 		Connection connection = getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement("DELETE FROM vender WHERE code=?");
-			statement.setString(1, venderCode);
+			PreparedStatement statement = connection.prepareStatement("DELETE FROM vender WHERE id=?");
+			statement.setInt(1, venderId);
 			if (1 == statement.executeUpdate()) {
 				return RET_OK;
 			}
@@ -37,16 +37,16 @@ public class VenderDataHelper extends BaseDataHelper{
 
 	/**
 	 * 插入供应商记录
-	 * @param vender
 	 * @return
 	 */
 	public static String insertVender(Vender vender) {
 		Connection connection = getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO vender(code, name, create_time) VALUES (?, ?, ?)");
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO vender(code, name, create_time, eateryName) VALUES (?, ?, ?, ?)");
 			statement.setString(1, vender.getCode());
 			statement.setString(2, vender.getName());
 			statement.setString(3, Util.getDateTimePretty());
+			statement.setString(4, vender.getEateryName());
 			if (1 == statement.executeUpdate()) {
 				return RET_OK;
 			}
@@ -60,19 +60,22 @@ public class VenderDataHelper extends BaseDataHelper{
 	}
 
 	/**
-	 * 获取所有供应商列表
+	 * 获取食堂的对应供应商列表
 	 * @return
 	 */
-	public static List<Vender> getVenderList() {
+	public static List<Vender> getVenderList(String eateryName) {
 		List<Vender> list = new LinkedList<>();
 		Connection connection = getConnection();
 		try {
-			ResultSet resultSet = connection.prepareStatement("SELECT * FROM vender").executeQuery();
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM vender WHERE eateryName=?");
+			statement.setString(1, eateryName);
+			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				Vender vender = new Vender();
 				vender.setId(resultSet.getInt("id"));
 				vender.setCode(resultSet.getString("code"));
 				vender.setName(resultSet.getString("name"));
+				vender.setEateryName(resultSet.getString("eateryName"));
 				list.add(vender);
 			}
 		} catch (SQLException e) {

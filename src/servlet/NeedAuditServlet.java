@@ -11,17 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.PriceBean;
 import bean.PurchasePlan;
 import bean.Requirement;
 import bean.ResultBean;
 import data.BaseDataHelper;
 import data.NeedDataHelper;
 import data.PlanDataHelper;
+import data.PriceDataHelper;
+import util.Util;
 
 /**
- * (食堂)需求审核
+ * 功能：通过采购需求、由采购需求生成采购计划、由采购计划、根据供应商名称生成采购订单
  * type:
- *      audit: 通过，并生成计划
+ *      audit: 通过，并生成计划、切割成订单
  *      noPass: 不通过
  * @author mingC
  * @date 2018/3/26
@@ -50,9 +53,21 @@ public class NeedAuditServlet extends HttpServlet {
 			if (res && res2) {
 				bean = new ResultBean(1, "ok");
 			} else {
-				bean = new ResultBean(-1, "审核需求(生成计划)失败！");
+				bean = new ResultBean(-1, "审核需求失败！");
 			}
 			response.getWriter().write(JSONObject.fromObject(bean).toString());
+			//保存需求产品价格作为历史价格
+			for (Requirement requirement : plan.getRequirementList()) {
+				PriceBean priceBean = new PriceBean();
+				priceBean.setCreateTime(Util.getDateTimePretty());
+				priceBean.setEateryName(plan.getEateryName());
+				priceBean.setPrice(requirement.getPrice());
+				priceBean.setProductName(requirement.getVarietyName());
+				priceBean.setType("history");
+				priceBean.setVenderName(requirement.getVenderName());
+				PriceDataHelper.addPrice(priceBean);
+			}
+
 		} else if (type.equals("noPass")) {
 			Gson gson = new Gson();
 			Requirement requirement = gson.fromJson(request.getReader(), Requirement.class);

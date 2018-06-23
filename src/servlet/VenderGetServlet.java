@@ -25,7 +25,7 @@ public class VenderGetServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setHeader("content-type","text/html;charset=UTF-8");
 
-		List<Vender> list = VenderDataHelper.getVenderList();
+		List<Vender> list = VenderDataHelper.getVenderList(request.getParameter("eateryName"));
 		response.getWriter().write(JSONArray.fromObject(list).toString());
 	}
 

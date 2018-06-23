@@ -21,7 +21,9 @@ import data.PlanDataHelper;
 /**
  * @author mingC
  * @date 2018/4/3
+ * 2018-06-03废弃此接口
  */
+@Deprecated
 public class AuditPlanServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 	                      HttpServletResponse response) throws ServletException, IOException {

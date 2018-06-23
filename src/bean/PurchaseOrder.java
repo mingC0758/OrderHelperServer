@@ -43,7 +43,18 @@ public class PurchaseOrder{
 	//备注图片url
 	List<String> notePicUrls;
 
-//	//发货时间
+	//供应商名
+	String venderName;
+
+	public String getVenderName() {
+		return venderName;
+	}
+
+	public void setVenderName(String venderName) {
+		this.venderName = venderName;
+	}
+
+	//	//发货时间
 //	String dispatchTime;
 //
 //	//收货时间

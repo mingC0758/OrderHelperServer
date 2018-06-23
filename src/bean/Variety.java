@@ -15,11 +15,15 @@ public class Variety{
 	String specification;
 	String categoryFirst;
 	String categorySecond;
+	String categoryThird;
 	String pic_url;
 
-	@Override
-	public String toString() {
-		return "Variety{" + "varietyCode=" + varietyCode + ", name='" + name + '\'' + ", category='" + category + '\'' + ", price=" + price + ", venderName='" + venderName + '\'' + ", specification='" + specification + '\'' + ", categoryFirst='" + categoryFirst + '\'' + ", categorySecond='" + categorySecond + '\'' + ", pic_url='" + pic_url + '\'' + '}';
+	public String getCategoryThird() {
+		return categoryThird;
+	}
+
+	public void setCategoryThird(String categoryThird) {
+		this.categoryThird = categoryThird;
 	}
 
 	public int getVarietyCode() {

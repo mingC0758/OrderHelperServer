@@ -28,6 +28,7 @@ public class VarietyDataHelper extends BaseDataHelper{
 			variety.setVenderName(set.getString("venderName"));
 			variety.setCategoryFirst(set.getString("category_first"));
 			variety.setCategorySecond(set.getString("category_second"));
+			variety.setCategoryThird(set.getString("category_third"));
 			variety.setPic_url(set.getString("pic_url"));
 			list.add(variety);
 		}

@@ -1,5 +1,7 @@
 package servlet;
 
+import com.google.gson.Gson;
+
 import net.sf.json.JSONObject;
 
 import java.io.IOException;
@@ -9,34 +11,40 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import bean.PriceBean;
 import bean.ResultBean;
-import data.VenderDataHelper;
+import data.PriceDataHelper;
 
 /**
- * 删除供应商
  * @author mingC
- * @date 2018/5/18
+ * @date 2018/6/6
  */
-public class VenderDelServlet extends HttpServlet {
+public class PriceUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 	                      HttpServletResponse response) throws ServletException, IOException {
 		//设置utf8编码
 		request.setCharacterEncoding("utf-8");
 		response.setCharacterEncoding("utf-8");
 		response.setHeader("content-type","text/html;charset=UTF-8");
-		int venderId = Integer.parseInt(request.getParameter("venderId"));
-		String ret = VenderDataHelper.delVender(venderId);
-		ResultBean resultBean;
-		if (ret.equals(VenderDataHelper.RET_OK)) {
-			resultBean = new ResultBean(1, "ok");
-		} else {
-			resultBean = new ResultBean(-1, ret);
+
+		String type = request.getParameter("type");
+		boolean result = false;
+		if (type.equals("add")) {
+			PriceBean priceBean = new Gson().fromJson(request.getReader(), PriceBean.class);
+			System.out.println("增加：" + priceBean);
+			result = PriceDataHelper.addPrice(priceBean);
+		} else if (type.equals("del")) {
+			result = PriceDataHelper.delPrice(Integer.parseInt(request.getParameter("priceId")));
 		}
-		response.getWriter().write(JSONObject.fromObject(resultBean).toString());
+		if (result) {
+			response.getWriter().write(JSONObject.fromObject(new ResultBean(1, "ok")).toString());
+		} else {
+			response.getWriter().write(JSONObject.fromObject(new ResultBean(-1, "err")).toString());
+		}
 	}
 
 	protected void doGet(HttpServletRequest request,
 	                     HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+
 	}
 }

@@ -46,6 +46,17 @@ public class Requirement {
 	//状态
 	String state;
 
+	//需求的供应商名称
+	String venderName;
+
+	public String getVenderName() {
+		return venderName;
+	}
+
+	public void setVenderName(String venderName) {
+		this.venderName = venderName;
+	}
+
 	public String getEateryName() {
 		return eateryName;
 	}

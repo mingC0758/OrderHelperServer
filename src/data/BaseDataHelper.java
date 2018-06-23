@@ -23,7 +23,7 @@ public class BaseDataHelper {
 	 * Note:使用完必须调用closeConnection来关闭，否则可能因为超出连接数而无法再获得连接
 	 * @return
 	 */
-	static Connection getConnection() {
+	public static Connection getConnection() {
 		Connection conn = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");

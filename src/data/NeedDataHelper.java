@@ -143,6 +143,7 @@ public class NeedDataHelper extends BaseDataHelper {
 		requirement.setStoreName(resultSet.getString("store_name"));
 		requirement.setWriteOffs(getWriteOffList(requirement.getNeedId()));
 		requirement.setState(resultSet.getString("state"));
+		requirement.setVenderName(resultSet.getString("venderName"));
 		return requirement;
 	}
 

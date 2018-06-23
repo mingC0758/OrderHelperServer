@@ -150,6 +150,7 @@ public class OrderDataHelper extends BaseDataHelper{
 			order.setEateryName(orderRs.getString("eateryName"));
 			order.setNoteText(orderRs.getString("note_text"));
 			order.setSignPicUrl(orderRs.getString("sign_url"));
+			order.setVenderName(orderRs.getString("venderName"));
 			//获取备注图片
 			PreparedStatement statNotePic = connection.prepareStatement("SELECT * FROM order_note_pic WHERE order_id=?");
 			statNotePic.setInt(1, order.getOrderCode());
@@ -161,7 +162,7 @@ public class OrderDataHelper extends BaseDataHelper{
 			}
 			order.setNotePicUrls(urls);
 			//获取订单对应的采购需求
-			PreparedStatement needStat = connection.prepareStatement("SELECT * FROM need,variety WHERE need.varietyCode=variety.id AND need.id IN (SELECT need_id FROM order_need WHERE order_id=?)");
+			PreparedStatement needStat = connection.prepareStatement("SELECT * FROM need WHERE need.id IN (SELECT need_id FROM order_need WHERE order_id=?)");
 			needStat.setInt(1, order.getOrderCode());
 			ResultSet needRs = needStat.executeQuery();
 			List<Requirement> requirementList = new LinkedList<>();

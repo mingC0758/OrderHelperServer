@@ -56,6 +56,9 @@ public class PlanDataHelper extends BaseDataHelper{
 			statement2.setString(3, "已审核");
 			statement2.executeUpdate();
 
+			/***添加完计划后，接下来就将计划设为已审核切割成订单**/
+			setPlanAudited(id);
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -118,36 +121,36 @@ public class PlanDataHelper extends BaseDataHelper{
 			count = statement.executeUpdate();
 			//切割订单
 			//1.获取计划的所有需求
-			PreparedStatement needStat = connection.prepareStatement("SELECT * FROM (plan_need, need, variety) WHERE plan_need.plan_id=? AND plan_need.need_id=need.id AND variety.id=need.varietyCode");
+			PreparedStatement needStat = connection.prepareStatement("SELECT * FROM (plan_need, need) WHERE plan_need.plan_id=? AND plan_need.need_id=need.id");
 			needStat.setInt(1, planCode);
 			ResultSet resultSet = needStat.executeQuery();
 			//2.根据需求品种的供应商分类
-			Map<Integer, List<Requirement>> venderMap = new HashMap<>();
+			Map<String, List<Requirement>> venderMap = new HashMap<>();
 			while (resultSet.next()) {
 				Requirement requirement = NeedDataHelper.rsToRequirement(resultSet);
-				int venderCode = resultSet.getInt("vender_code");
-				if (! venderMap.containsKey(venderCode)) {
-					venderMap.put(venderCode, new LinkedList<>());
+				String venderName = resultSet.getString("venderName");
+				if (! venderMap.containsKey(venderName)) {
+					venderMap.put(venderName, new LinkedList<>());
 				}
-				venderMap.get(venderCode).add(requirement);
+				venderMap.get(venderName).add(requirement);
 			}
 			//3.按每一个供应商创建一个订单
-			for (Integer venderCode : venderMap.keySet()) {
+			for (String venderName : venderMap.keySet()) {
 				ResultSet rsMax = connection.createStatement().executeQuery("SELECT max(id) FROM purchase_order");
 				int maxId = 1;
 				if (rsMax.next()) {
 					maxId = rsMax.getInt(1) + 1;
 				}
-				PreparedStatement insertStat = connection.prepareStatement("INSERT INTO purchase_order(id,planId, state, submit_time, venderCode, submit_user) VALUES (?,?,?,?,?,?)");
+				PreparedStatement insertStat = connection.prepareStatement("INSERT INTO purchase_order(id,planId, state, submit_time, venderName, submit_user) VALUES (?,?,?,?,?,?)");
 				insertStat.setInt(1, maxId);
 				insertStat.setInt(2, planCode);
 				insertStat.setString(3, "待发货");
 				insertStat.setString(4, Util.getDateTimePretty());
-				insertStat.setInt(5, venderCode);
+				insertStat.setString(5, venderName);
 				insertStat.setString(6, "暂未实现");
 				insertStat.executeUpdate();
 				//4.创建订单对应的需求
-				for (Requirement requirement : venderMap.get(venderCode)) {
+				for (Requirement requirement : venderMap.get(venderName)) {
 					PreparedStatement needInsertStat = connection.prepareStatement("INSERT INTO order_need(order_id, need_id) VALUES (?,?)");
 					needInsertStat.setInt(1, maxId);
 					needInsertStat.setInt(2, requirement.getNeedId());

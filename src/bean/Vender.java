@@ -8,10 +8,14 @@ public class Vender {
 	int id;
 	String code;
 	String name;
+	String eateryName;
 
-	@Override
-	public String toString() {
-		return "Vender{" + "id=" + id + ", code='" + code + '\'' + ", name='" + name + '\'' + '}';
+	public String getEateryName() {
+		return eateryName;
+	}
+
+	public void setEateryName(String eateryName) {
+		this.eateryName = eateryName;
 	}
 
 	public int getId() {
