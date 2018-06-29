@@ -47,7 +47,7 @@ public class NeedDataHelper extends BaseDataHelper {
 				//不存在相同，插入新需求
 				System.out.println("需求不存在，新插入：" + requirement.getVarietyName());
 				PreparedStatement statement = connection.prepareStatement(
-						"INSERT INTO need(eateryName, varietyName, specification, varietyCode, amount, price, state, submit_time, actual_amount, store_name, pic_url) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+						"INSERT INTO need(eateryName, varietyName, specification, varietyCode, amount, price, state, submit_time, actual_amount, store_name, pic_url, venderName) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 				statement.setString(1, requirement.getEateryName());
 				statement.setString(2, requirement.getVarietyName());
 				statement.setString(3, requirement.getSpecification());
@@ -59,6 +59,7 @@ public class NeedDataHelper extends BaseDataHelper {
 				statement.setInt(9, requirement.getAmount());
 				statement.setString(10, requirement.getStoreName());
 				statement.setString(11, requirement.getImg());
+				statement.setString(12, requirement.getVenderName());
 				statement.executeUpdate();
 			}
 		} catch (Exception e) {
@@ -167,7 +168,7 @@ public class NeedDataHelper extends BaseDataHelper {
 	}
 
 	/**
-	 * 将需求状态设为：已审核
+	 * 将需求状态设为：已审核，同时设置需求的价格和供应商
 	 *
 	 * @return
 	 */
@@ -177,21 +178,28 @@ public class NeedDataHelper extends BaseDataHelper {
 			return true;
 		}
 		Connection connection = getConnection();
-		PreparedStatement statement = null;
 		try {
-			StringBuilder builder = new StringBuilder();
-			for (int i = 0; i < requirements.size(); i++) {
-				builder.append(String.valueOf(requirements.get(i).getNeedId()));
-				if (i != requirements.size() - 1) {
-					builder.append(',');
-				}
+			for (Requirement requirement : requirements) {
+				PreparedStatement preparedStatement = connection.prepareStatement("UPDATE need SET state='已审核',price=?,venderName=? WHERE id=?");
+				preparedStatement.setDouble(1, requirement.getPrice());
+				preparedStatement.setString(2, requirement.getVenderName());
+				preparedStatement.setInt(3, requirement.getNeedId());
+				preparedStatement.executeUpdate();
 			}
-			String param = builder.toString();
-			System.out.println("拼接结果：" + param);
-			statement = connection.prepareStatement(
-					"UPDATE need SET state = '已审核' WHERE id IN (" + param + ")");
-			int row = statement.executeUpdate();
-			System.out.println("影响：" + row);
+//		PreparedStatement statement = null;
+//			StringBuilder builder = new StringBuilder();
+//			for (int i = 0; i < requirements.size(); i++) {
+//				builder.append(String.valueOf(requirements.get(i).getNeedId()));
+//				if (i != requirements.size() - 1) {
+//					builder.append(',');
+//				}
+//			}
+//			String param = builder.toString();
+//			System.out.println("拼接结果：" + param);
+//			statement = connection.prepareStatement(
+//					"UPDATE need SET state = '已审核' WHERE id IN (" + param + ")");
+//			int row = statement.executeUpdate();
+//			System.out.println("影响：" + row);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;

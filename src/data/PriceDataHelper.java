@@ -47,6 +47,24 @@ public class PriceDataHelper extends BaseDataHelper{
 		return list;
 	}
 
+	public static boolean isPriceExist(PriceBean priceBean) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement("SELECT * FROM price WHERE price=? AND eateryName=? AND venderName=? AND productName=?");
+			statement.setDouble(1, priceBean.getPrice());
+			statement.setString(2, priceBean.getEateryName());
+			statement.setString(3, priceBean.getVenderName());
+			statement.setString(4, priceBean.getProductName());
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
 	public static boolean addPrice(PriceBean priceBean) {
 		Connection connection = getConnection();
 		try {
