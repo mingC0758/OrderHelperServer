@@ -11,9 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import bean.ResultBean;
 import data.OrderDataHelper;
+import util.Util;
 
 /**
- * 发货
+ * 发货接口
  * @author mingC
  * @date 2018/4/8
  */
@@ -32,13 +33,12 @@ public class OrderDispatchServlet extends HttpServlet {
 			boolean result = false;
 			if (type == 1) {
 				result = OrderDataHelper.updateOrderState(orderId, "已发货");
-			} else if (type == 2) {
-				result = OrderDataHelper.updateOrderState(orderId, "已验收");
 			}
 			ResultBean resultBean = new ResultBean(-1, "发货失败");
 			if (result) {
 				resultBean.setCode(1);
 				resultBean.setMsg("ok");
+				OrderDataHelper.setOrderDispatchTime(orderId, Util.getDateTimePretty());
 			}
 			response.getWriter().write(JSONObject.fromObject(resultBean).toString());
 		} catch (NumberFormatException e) {

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.ResultBean;
+import data.LogDataHelper;
 import data.UserDataHelper;
 
 /**
@@ -38,19 +39,23 @@ public class LoginServlet extends HttpServlet {
 			if (UserDataHelper.CORRECT.equals(ret)) {
 				resultBean.setCode(1);
 				resultBean.setMsg("ok");
+				LogDataHelper.log(account, "token登陆","成功", request.getRemoteAddr());
 			} else {
 				resultBean.setCode(-1);
 				resultBean.setMsg(ret);
+				LogDataHelper.log(account, "token登陆","失败", request.getRemoteAddr());
 			}
 		} else {
 			ret = UserDataHelper.checkAccount(account, password);
 			if (UserDataHelper.CORRECT.equals(ret)) {
+				LogDataHelper.log(account, "帐号登陆","成功", request.getRemoteAddr());
 				//更新token
 				String newToken = UUID.randomUUID().toString();
 				UserDataHelper.updateToken(account, newToken);
 				resultBean.setCode(1);
 				resultBean.setMsg(newToken);
 			} else {
+				LogDataHelper.log(account, "帐号登陆","失败", request.getRemoteAddr());
 				resultBean.setCode(-1);
 				resultBean.setMsg(ret);
 			}

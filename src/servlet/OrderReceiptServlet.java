@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import bean.PurchaseOrder;
 import bean.ResultBean;
 import data.OrderDataHelper;
+import util.Util;
 
 /**
+ * 收货接口
  * @author mingC
  * @date 2018/4/22
  */
@@ -38,6 +40,8 @@ public class OrderReceiptServlet extends HttpServlet {
 		} else {
 			ResultBean bean = new ResultBean(1, "ok");
 			response.getWriter().write(JSONObject.fromObject(bean).toString());
+			//设置收货时间
+			OrderDataHelper.setOrderReceiptTime(order.getOrderCode(), Util.getDateTimePretty());
 		}
 	}
 

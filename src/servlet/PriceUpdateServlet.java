@@ -32,7 +32,12 @@ public class PriceUpdateServlet extends HttpServlet {
 		if (type.equals("add")) {
 			PriceBean priceBean = new Gson().fromJson(request.getReader(), PriceBean.class);
 			System.out.println("增加：" + priceBean);
-			result = PriceDataHelper.addPrice(priceBean);
+			if (PriceDataHelper.isPriceExist(priceBean)) {
+				System.out.println("价格已存在");
+				result = true;
+			} else {
+				result = PriceDataHelper.addPrice(priceBean);
+			}
 		} else if (type.equals("del")) {
 			result = PriceDataHelper.delPrice(Integer.parseInt(request.getParameter("priceId")));
 		}

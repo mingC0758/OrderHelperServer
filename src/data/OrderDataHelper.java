@@ -270,4 +270,40 @@ public class OrderDataHelper extends BaseDataHelper{
 		}
 		return false;
 	}
+
+	/**
+	 * 设置订单收货时间
+	 */
+	public static void setOrderReceiptTime(int orderId, String datetime) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(
+					"UPDATE purchase_order SET receive_time=? WHERE id=?");
+			statement.setString(1, datetime);
+			statement.setInt(2, orderId);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
+		}
+	}
+
+	/**
+	 * 设置订单发货时间
+	 */
+	public static void setOrderDispatchTime(int orderId, String datetime) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(
+					"UPDATE purchase_order SET dispatch_time=? WHERE id=?");
+			statement.setString(1, datetime);
+			statement.setInt(2, orderId);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
+		}
+	}
 }
