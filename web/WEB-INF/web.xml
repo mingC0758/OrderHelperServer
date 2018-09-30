@@ -6,107 +6,111 @@
 
 	<servlet>
 		<servlet-name>NeedServlet</servlet-name>
-		<servlet-class>servlet.NeedServlet</servlet-class>
+		<servlet-class>servlet.purchase.NeedServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>VarietyServlet</servlet-name>
-		<servlet-class>servlet.VarietyServlet</servlet-class>
+		<servlet-class>servlet.other.VarietyServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>NeedGetServlet</servlet-name>
-		<servlet-class>servlet.NeedGetServlet</servlet-class>
+		<servlet-class>servlet.purchase.NeedGetServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>NeedAuditServlet</servlet-name>
-		<servlet-class>servlet.NeedAuditServlet</servlet-class>
+		<servlet-class>servlet.purchase.NeedAuditServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AuditPlanServlet</servlet-name>
-		<servlet-class>servlet.AuditPlanServlet</servlet-class>
+		<servlet-class>servlet.other.AuditPlanServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>getUnauditedPlanServlet</servlet-name>
-		<servlet-class>servlet.GetUnauditedPlanServlet</servlet-class>
+		<servlet-class>servlet.other.GetUnauditedPlanServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>GetOrderServlet</servlet-name>
-		<servlet-class>servlet.GetOrderServlet</servlet-class>
+		<servlet-class>servlet.flow.GetOrderServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>OrderDispatchServlet</servlet-name>
-		<servlet-class>servlet.OrderDispatchServlet</servlet-class>
+		<servlet-class>servlet.flow.OrderDispatchServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>GetPlanServlet</servlet-name>
-		<servlet-class>servlet.GetPlanServlet</servlet-class>
+		<servlet-class>servlet.other.GetPlanServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>OrderReceiptServlet</servlet-name>
-		<servlet-class>servlet.OrderReceiptServlet</servlet-class>
+		<servlet-class>servlet.flow.OrderReceiptServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AddWriteOffServlet</servlet-name>
-		<servlet-class>servlet.AddWriteOffServlet</servlet-class>
+		<servlet-class>servlet.flow.AddWriteOffServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>OrderAddNotePicsServlet</servlet-name>
-		<servlet-class>servlet.OrderAddNotePicsServlet</servlet-class>
+		<servlet-class>servlet.flow.OrderAddNotePicsServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>AddOrderSignServlet</servlet-name>
-		<servlet-class>servlet.AddOrderSignServlet</servlet-class>
+		<servlet-class>servlet.flow.AddOrderSignServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>OrderJiesuanServlet</servlet-name>
-		<servlet-class>servlet.OrderJiesuanServlet</servlet-class>
+		<servlet-class>servlet.finance.OrderJiesuanServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>LoginServlet</servlet-name>
-		<servlet-class>servlet.LoginServlet</servlet-class>
+		<servlet-class>servlet.other.LoginServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>UserGetServlet</servlet-name>
-		<servlet-class>servlet.UserGetServlet</servlet-class>
+		<servlet-class>servlet.other.UserGetServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>UserUpdateServlet</servlet-name>
-		<servlet-class>servlet.UserUpdateServlet</servlet-class>
+		<servlet-class>servlet.other.UserUpdateServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>VenderGetServlet</servlet-name>
-		<servlet-class>servlet.VenderGetServlet</servlet-class>
+		<servlet-class>servlet.other.VenderGetServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>VenderDelServlet</servlet-name>
-		<servlet-class>servlet.VenderDelServlet</servlet-class>
+		<servlet-class>servlet.other.VenderDelServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>VenderAddServlet</servlet-name>
-		<servlet-class>servlet.VenderAddServlet</servlet-class>
+		<servlet-class>servlet.other.VenderAddServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>VarietyUpdateServlet</servlet-name>
-		<servlet-class>servlet.VarietyUpdateServlet</servlet-class>
+		<servlet-class>servlet.other.VarietyUpdateServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>CategoryGetServlet</servlet-name>
-		<servlet-class>servlet.CategoryGetServlet</servlet-class>
+		<servlet-class>servlet.other.CategoryGetServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>CategoryUpdateServlet</servlet-name>
-		<servlet-class>servlet.CategoryUpdateServlet</servlet-class>
+		<servlet-class>servlet.other.CategoryUpdateServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>PriceGetServlet</servlet-name>
-		<servlet-class>servlet.PriceGetServlet</servlet-class>
+		<servlet-class>servlet.other.PriceGetServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>PriceUpdateServlet</servlet-name>
-		<servlet-class>servlet.PriceUpdateServlet</servlet-class>
+		<servlet-class>servlet.other.PriceUpdateServlet</servlet-class>
 	</servlet>
 	<servlet>
 		<servlet-name>OrderShareServlet</servlet-name>
-		<servlet-class>servlet.OrderShareServlet</servlet-class>
+		<servlet-class>servlet.finance.OrderShareServlet</servlet-class>
+	</servlet>
+	<servlet>
+		<servlet-name>SecureServlet</servlet-name>
+		<servlet-class>servlet.flow.SecureServlet</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
@@ -212,5 +216,9 @@
 	<servlet-mapping>
 		<servlet-name>OrderShareServlet</servlet-name>
 		<url-pattern>/Order/share</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SecureServlet</servlet-name>
+		<url-pattern>/Order/secure</url-pattern>
 	</servlet-mapping>
 </web-app>

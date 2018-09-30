@@ -306,4 +306,45 @@ public class OrderDataHelper extends BaseDataHelper{
 			closeConnection(connection);
 		}
 	}
+
+	public static void addSecurePic(int orderId, String path) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(
+					"INSERT into order_secure(order_id, secure_path) VALUES (?,?)");
+			statement.setInt(1, orderId);
+			statement.setString(2, path);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
+		}
+	}
+
+	public static String getSecurePic(int orderId) {
+		Connection connection = getConnection();
+		try {
+			PreparedStatement statement = connection.prepareStatement(
+					"SELECT secure_path FROM order_secure WHERE order_id=?");
+			statement.setInt(1, orderId);
+			ResultSet resultSet = statement.executeQuery();
+			if (resultSet.next()) {
+				return resultSet.getString("secure_path");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			closeConnection(connection);
+		}
+		return "";
+	}
+
+	public static double calTotalPrice(PurchaseOrder order) {
+		double total = 0;
+		for (Requirement requirement : order.getPurchaseList()) {
+			total += requirement.getPrice() * requirement.getAmount();
+		}
+		return total;
+	}
 }

@@ -25,7 +25,7 @@ public class UserDataHelper extends BaseDataHelper{
 	public static String insertUser(User user) {
 		Connection connection = getConnection();
 		try {
-			PreparedStatement statement = connection.prepareStatement("INSERT INTO user(account, password, name, role, duty,higher, create_time) VALUES(?,?,?,?,?,?,?) ");
+			PreparedStatement statement = connection.prepareStatement("INSERT INTO user(account, password, name, role, duty,higher, create_time,tel) VALUES(?,?,?,?,?,?,?,?) ");
 			statement.setString(1, user.getAccount());
 			statement.setString(2, user.getPassword());
 			statement.setString(3, user.getName());
@@ -33,6 +33,7 @@ public class UserDataHelper extends BaseDataHelper{
 			statement.setString(5, user.getDuty());
 			statement.setString(6, user.getHigher());
 			statement.setString(7, Util.getDateTimePretty());
+			statement.setString(8, user.getTel());
 			if (1 == statement.executeUpdate()) {
 				return CORRECT;
 			}
@@ -174,7 +175,7 @@ public class UserDataHelper extends BaseDataHelper{
 		PreparedStatement statement = null;
 		List<User> userList = new LinkedList<>();
 		try {
-			statement = connection.prepareStatement("SELECT * from user WHERE account <> 'root'");  //屏蔽超级管理用户
+			statement = connection.prepareStatement("SELECT * from user");  //屏蔽超级管理用户
 			ResultSet resultSet = statement.executeQuery();
 			while (resultSet.next()) {
 				userList.add(rsToUser(resultSet));
@@ -217,6 +218,7 @@ public class UserDataHelper extends BaseDataHelper{
 		user.setDuty(resultSet.getString("duty"));
 		user.setRole(resultSet.getString("role"));
 		user.setHigher(resultSet.getString("higher"));
+		user.setTel(resultSet.getString("tel"));
 		return user;
 	}
 }
